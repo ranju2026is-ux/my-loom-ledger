@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swarnam Loom Ledger | Handloom Business Tracker</title>
+    <title>Swarnam Loom Ledger | Savakar Settlement Tracker</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter (Clean, legible sans for numbers) -->
+    <!-- Google Fonts: Inter & Playfair for beautiful handloom texture feel -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
                         brand: {
                             50: '#fdf8f6',
                             100: '#fbeee9',
-                            500: '#d97706', // Gold / Amber
+                            500: '#d97706', // Gold / Amber Accent
                             800: '#7c2d12', // Warm terracotta red / brown
                             900: '#431407'  // Deep charcoal warm
                         }
@@ -59,7 +59,7 @@
             </div>
             <div>
                 <h1 class="font-bold text-base sm:text-lg tracking-tight leading-none text-brand-900">Swarnam Loom Ledger</h1>
-                <p class="text-[10px] sm:text-xs text-brand-500 font-medium">Daily Production, Labour, Loan & Transport Log</p>
+                <p class="text-[10px] sm:text-xs text-brand-500 font-medium">Savakar: Shashidar Challapalli Accounts Book</p>
             </div>
         </div>
 
@@ -70,7 +70,7 @@
                 <span class="hidden sm:inline">Connecting...</span>
             </div>
             <button onclick="toggleConfigModal()" class="text-xs bg-brand-100 hover:bg-brand-500 hover:text-white text-brand-800 transition-all font-medium py-1.5 px-3 rounded-md flex items-center gap-1">
-                <i class="fa-solid fa-database"></i> <span class="hidden sm:inline">Settings</span>
+                <i class="fa-solid fa-database"></i> <span class="hidden sm:inline">Database</span>
             </button>
         </div>
     </div>
@@ -80,31 +80,31 @@
     
     <!-- Business Real-time Dashboard Summary -->
     <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
-        <!-- 1. Saree production value generated -->
+        <!-- 1. Total Saree production value generated (₹540 per saree default) -->
         <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div>
-                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Total Saree Production</span>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Saree Earnings (Credit)</span>
                 <h3 id="stat-production" class="text-xl sm:text-2xl font-bold text-emerald-700 mt-1">₹0</h3>
             </div>
             <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
-                <span>Quantity Weaved:</span>
+                <span>Total Weaved:</span>
                 <span id="stat-qty" class="font-bold text-brand-800">0 pcs</span>
             </div>
         </div>
 
-        <!-- 2. Labour Paid -->
+        <!-- 2. Labour Wages Paid to auxiliary weavers -->
         <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div>
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Labour Wages Paid</span>
                 <h3 id="stat-labour" class="text-xl sm:text-2xl font-bold text-amber-700 mt-1">₹0</h3>
             </div>
             <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
-                <span>Total transactions:</span>
+                <span>Transactions:</span>
                 <span id="stat-labour-count" class="font-bold text-brand-800">0 times</span>
             </div>
         </div>
 
-        <!-- 3. Outstanding Loans -->
+        <!-- 3. Outstanding Loans to deduct -->
         <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div>
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Outstanding Loan</span>
@@ -116,27 +116,27 @@
             </div>
         </div>
 
-        <!-- 4. Transport Spent -->
+        <!-- 4. Transport Expenses (Incoming & Outgoing) -->
         <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div>
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Transport Expense</span>
                 <h3 id="stat-transport" class="text-xl sm:text-2xl font-bold text-indigo-700 mt-1">₹0</h3>
             </div>
             <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
-                <span>In & Out transport:</span>
+                <span>Shipments:</span>
                 <span id="stat-transport-count" class="font-bold text-brand-800">0 times</span>
             </div>
         </div>
 
-        <!-- 5. Net Cash Remaining -->
+        <!-- 5. Net Pending Savakar Balance (Calculation Dashboard) -->
         <div class="col-span-2 lg:col-span-1 bg-brand-900 text-brand-100 p-4 rounded-xl shadow-md relative overflow-hidden flex flex-col justify-between">
             <div>
-                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-300 block">Net Estimated Profit</span>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-300 block">Due from Savakar</span>
                 <h3 id="stat-net" class="text-xl sm:text-2xl font-bold text-white mt-1">₹0</h3>
             </div>
             <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-800 text-[10px] text-brand-300">
-                <span>(Production - Expenses)</span>
-                <i class="fa-solid fa-coins text-brand-500"></i>
+                <span>Net to Collect</span>
+                <i class="fa-solid fa-wallet text-brand-500"></i>
             </div>
         </div>
     </section>
@@ -147,24 +147,24 @@
         <div class="lg:col-span-4 bg-white border border-brand-100 rounded-xl shadow-sm p-4 sm:p-5 space-y-4">
             <div class="flex items-center gap-2 pb-3 border-b border-brand-100">
                 <i class="fa-solid fa-plus-circle text-brand-800 text-lg"></i>
-                <h2 class="font-bold text-sm tracking-wide text-brand-900 uppercase">Log New Handloom Entry</h2>
+                <h2 class="font-bold text-sm tracking-wide text-brand-900 uppercase">Log Daily Ledger Entry</h2>
             </div>
 
             <!-- Selector Buttons for entry types -->
             <div>
                 <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-2">Select Entry Type</label>
                 <div class="grid grid-cols-2 gap-2">
-                    <button type="button" onclick="setFormType('production')" id="tab-production" class="form-tab py-2 px-3 border border-brand-800 bg-brand-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-socks"></i> Saree Production
+                    <button type="button" onclick="setFormType('production')" id="tab-production" class="form-tab py-2 px-3 border border-brand-800 bg-brand-800 text-white rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-socks"></i> Saree sent to Savakar
                     </button>
-                    <button type="button" onclick="setFormType('labour')" id="tab-labour" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-user-gear"></i> Labour Pay
+                    <button type="button" onclick="setFormType('labour')" id="tab-labour" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-user-gear"></i> Labour Wages
                     </button>
-                    <button type="button" onclick="setFormType('loan')" id="tab-loan" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-hand-holding-dollar"></i> Loan Transaction
+                    <button type="button" onclick="setFormType('loan')" id="tab-loan" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-hand-holding-dollar"></i> Loan Payment
                     </button>
-                    <button type="button" onclick="setFormType('transport')" id="tab-transport" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-truck"></i> Transport Fee
+                    <button type="button" onclick="setFormType('transport')" id="tab-transport" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-truck"></i> Transport Cost
                     </button>
                 </div>
             </div>
@@ -177,22 +177,25 @@
                     <input type="date" id="input-date" required class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                 </div>
 
-                <!-- Fields for Production -->
+                <!-- Fields for Saree Production -->
                 <div id="fields-production" class="space-y-3">
                     <div>
-                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Saree Type (e.g., Ilkal Silk, Banarasi, Cotton)</label>
-                        <input type="text" id="saree-type" placeholder="e.g. Traditional Ilkal Saree" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Saree Fabric/Design Details</label>
+                        <input type="text" id="saree-type" placeholder="e.g. Traditional Ilkal Border Saree" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Quantity Weaved</label>
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Quantity (pcs)</label>
                             <input type="number" min="1" id="saree-qty" placeholder="1" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                         </div>
                         <div>
                             <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Price per Saree (₹)</label>
-                            <input type="number" min="0" id="saree-price" placeholder="4500" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                            <input type="number" min="0" id="saree-price" value="540" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 font-bold text-emerald-800 focus:outline-none focus:border-brand-500">
                         </div>
                     </div>
+                    <p class="text-[10px] text-emerald-600 bg-emerald-50 p-2 rounded border border-emerald-100 font-medium">
+                        <i class="fa-solid fa-circle-info"></i> Pre-filled standard rate of <strong>₹540 per saree</strong> as requested.
+                    </p>
                 </div>
 
                 <!-- Fields for Labour -->
@@ -202,23 +205,23 @@
                         <input type="text" id="labour-name" placeholder="e.g. Ramesh" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                     </div>
                     <div>
-                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Wages/Amount Paid (₹)</label>
-                        <input type="number" min="0" id="labour-amount" placeholder="2500" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Wages Paid (₹)</label>
+                        <input type="number" min="0" id="labour-amount" placeholder="e.g. 1500" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                     </div>
                 </div>
 
                 <!-- Fields for Loan -->
                 <div id="fields-loan" class="space-y-3 hidden">
                     <div>
-                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Loan Transaction Type</label>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Loan Action</label>
                         <select id="loan-subtype" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
-                            <option value="taken">Loan Received (Cash Inflow)</option>
-                            <option value="repaid">Loan Paid Back (Payoff)</option>
+                            <option value="taken">Loan Received (Debt Inflow)</option>
+                            <option value="repaid">Loan Paid Back (Payoff Outflow)</option>
                         </select>
                     </div>
                     <div>
                         <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Loan Amount (₹)</label>
-                        <input type="number" min="0" id="loan-amount" placeholder="10000" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        <input type="number" min="0" id="loan-amount" placeholder="e.g. 10000" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                     </div>
                 </div>
 
@@ -227,20 +230,20 @@
                     <div>
                         <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Transport Category</label>
                         <select id="transport-direction" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
-                            <option value="incoming">Yarn/Raw Material Transport (In)</option>
-                            <option value="outgoing">Saree Delivery/Shipment (Out)</option>
+                            <option value="incoming">Yarn/Raw Materials Coming In (Went)</option>
+                            <option value="outgoing">Sarees Sent to Savakar (Came)</option>
                         </select>
                     </div>
                     <div>
                         <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Transport Cost (₹)</label>
-                        <input type="number" min="0" id="transport-amount" placeholder="450" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        <input type="number" min="0" id="transport-amount" placeholder="e.g. 350" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                     </div>
                 </div>
 
                 <!-- Notes / Remarks field -->
                 <div>
-                    <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Notes / Remarks</label>
-                    <textarea id="input-notes" rows="2" placeholder="Write any specific detail here..." class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500"></textarea>
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Remarks / Note</label>
+                    <textarea id="input-notes" rows="2" placeholder="e.g. Bill No / Challan detail..." class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500"></textarea>
                 </div>
 
                 <!-- Action Button -->
@@ -250,61 +253,129 @@
             </form>
         </div>
 
-        <!-- Right side: Interactive database list & Filter -->
-        <div class="lg:col-span-8 bg-white border border-brand-100 rounded-xl shadow-sm p-4 sm:p-5 flex flex-col justify-between min-h-[450px]">
+        <!-- Right side: Multi-Tab Interactive Logs and Calculations Pages -->
+        <div class="lg:col-span-8 bg-white border border-brand-100 rounded-xl shadow-sm p-4 sm:p-5 flex flex-col justify-between min-h-[500px]">
             <div class="space-y-4">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-brand-100">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-brand-800 text-lg"></i>
-                        <h2 class="font-bold text-sm tracking-wide text-brand-900 uppercase">Live Handloom Database Log</h2>
+                <!-- Page Navigation Tabs -->
+                <div class="flex border-b border-brand-100 gap-4">
+                    <button onclick="switchView('settlement-view')" id="view-tab-settlement" class="pb-3 text-xs uppercase font-bold tracking-wider border-b-2 border-brand-800 text-brand-900 flex items-center gap-1.5 focus:outline-none transition-all">
+                        <i class="fa-solid fa-wallet"></i> Savakar Account Sheet
+                    </button>
+                    <button onclick="switchView('logs-view')" id="view-tab-logs" class="pb-3 text-xs uppercase font-bold tracking-wider border-b-2 border-transparent text-brand-400 hover:text-brand-900 flex items-center gap-1.5 focus:outline-none transition-all">
+                        <i class="fa-solid fa-list-check"></i> All Transaction Logs
+                    </button>
+                </div>
+
+                <!-- TAB PAGE 1: Savakar Settlement Sheet (Requested Calculation Dashboard) -->
+                <div id="view-settlement-view" class="space-y-5">
+                    <div class="p-4 bg-amber-50/50 rounded-xl border border-brand-100 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-sm tracking-wide text-brand-800 uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-building-columns"></i> Shashidar Challapalli (Savakar) Balance Sheet
+                            </h3>
+                            <span class="text-[10px] bg-brand-800 text-white font-bold py-1 px-2.5 rounded-full uppercase">Net Due Settlement</span>
+                        </div>
+                        
+                        <!-- Mathematical Ledger Model Step-by-Step Display -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                            <div class="bg-white p-3 rounded-lg border border-brand-100 shadow-sm">
+                                <span class="text-[9px] uppercase font-bold text-emerald-600 tracking-wider">Saree Credit</span>
+                                <h4 id="calc-saree-val" class="text-base font-bold text-emerald-800 mt-1">₹0</h4>
+                                <p class="text-[9px] text-brand-400">Total saree value weaved</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-brand-100 shadow-sm">
+                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Labour</span>
+                                <h4 id="calc-labour" class="text-base font-bold text-rose-700 mt-1">-₹0</h4>
+                                <p class="text-[9px] text-brand-400">Wages deducted from balance</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-brand-100 shadow-sm">
+                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Loans</span>
+                                <h4 id="calc-loan" class="text-base font-bold text-rose-700 mt-1">-₹0</h4>
+                                <p class="text-[9px] text-brand-400">Repayment deduction</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-brand-100 shadow-sm">
+                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Transport</span>
+                                <h4 id="calc-transport" class="text-base font-bold text-rose-700 mt-1">-₹0</h4>
+                                <p class="text-[9px] text-brand-400">Fares & went freight cost</p>
+                            </div>
+                        </div>
+
+                        <!-- Mathematical Equation Summary -->
+                        <div class="border-t border-brand-200/60 pt-4 mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-brand-100">
+                            <div>
+                                <h4 class="font-bold text-sm text-brand-900 uppercase">Settlement Outstanding</h4>
+                                <p class="text-[11px] text-brand-500 font-light mt-0.5">
+                                    Formula: [Total Sarees] - [Labour paid] - [Loans Outstanding] - [Transport]
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <h3 id="calc-final-due" class="text-xl sm:text-2xl font-black text-brand-900">₹0</h3>
+                                <p class="text-[10px] text-brand-400 font-semibold uppercase">Pending to collect from Shashidar Challapalli</p>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Quick local month filter -->
-                    <div class="flex gap-2">
-                        <select id="filter-type" onchange="filterLedgerData()" class="border border-brand-100 rounded-lg px-3 py-1.5 text-xs focus:outline-none bg-brand-50 text-brand-800 font-semibold">
-                            <option value="all">All Logs</option>
-                            <option value="production">Production Only</option>
-                            <option value="labour">Labour Only</option>
-                            <option value="loan">Loans Only</option>
-                            <option value="transport">Transport Only</option>
-                        </select>
-                        <button onclick="exportToCSV()" class="bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-800 font-semibold py-1.5 px-3 rounded-lg text-xs flex items-center gap-1.5 transition-all">
-                            <i class="fa-solid fa-file-excel"></i> Export CSV
-                        </button>
+
+                    <!-- Informational notice on Savakar settlements -->
+                    <div class="p-3.5 bg-brand-50 border border-brand-100 rounded-xl flex items-start gap-3">
+                        <i class="fa-solid fa-circle-info text-brand-500 text-sm mt-0.5 shrink-0"></i>
+                        <div class="text-[11px] text-brand-600 leading-relaxed">
+                            <strong>Note on Savakar Account:</strong> Under your loom model, when sarees are delivered, the value (quantity × ₹540) is logged as receivable balance. The helper weavers' labour costs, active repayments/loans, and any transport expenses are deducted from this pool. This sheet calculates the net balance you can ask from Savakar <strong>Shashidar Challapalli</strong>.
+                        </div>
                     </div>
                 </div>
 
-                <!-- Real-time List Container -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs">
-                        <thead>
-                            <tr class="bg-brand-50 text-brand-600 uppercase text-[9px] tracking-wider border-b border-brand-100">
-                                <th class="p-3">Date</th>
-                                <th class="p-3">Type</th>
-                                <th class="p-3">Primary Info</th>
-                                <th class="p-3">Financial Value</th>
-                                <th class="p-3">Notes</th>
-                                <th class="p-3 text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ledger-rows" class="divide-y divide-brand-100">
-                            <!-- Injected dynamically via Firestore -->
-                            <tr>
-                                <td colspan="6" class="p-12 text-center text-brand-400">
-                                    <i class="fa-solid fa-rotate animate-spin text-2xl mb-3 block"></i>
-                                    Reading real-time ledger data entries...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- TAB PAGE 2: All Transaction Logs (Original database view) -->
+                <div id="view-logs-view" class="space-y-4 hidden">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <h3 class="font-bold text-xs tracking-wide text-brand-800 uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-list"></i> Filter Database entries
+                        </h3>
+                        <!-- Filter types dropdown -->
+                        <div class="flex gap-2">
+                            <select id="filter-type" onchange="filterLedgerData()" class="border border-brand-100 rounded-lg px-3 py-1.5 text-xs focus:outline-none bg-brand-50 text-brand-800 font-semibold">
+                                <option value="all">All Logs</option>
+                                <option value="production">Saree Deliveries</option>
+                                <option value="labour">Labour Wages</option>
+                                <option value="loan">Loans</option>
+                                <option value="transport">Transport</option>
+                            </select>
+                            <button onclick="exportToCSV()" class="bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-800 font-semibold py-1.5 px-3 rounded-lg text-xs flex items-center gap-1.5 transition-all">
+                                <i class="fa-solid fa-file-excel"></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Real-time List Table Container -->
+                    <div class="overflow-x-auto border border-brand-100 rounded-xl">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="bg-brand-50 text-brand-600 uppercase text-[9px] tracking-wider border-b border-brand-100">
+                                    <th class="p-3">Date</th>
+                                    <th class="p-3">Type</th>
+                                    <th class="p-3">Transaction Details</th>
+                                    <th class="p-3">Cash Value</th>
+                                    <th class="p-3">Notes</th>
+                                    <th class="p-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ledger-rows" class="divide-y divide-brand-100">
+                                <!-- Injected dynamically via script -->
+                                <tr>
+                                    <td colspan="6" class="p-12 text-center text-brand-400">
+                                        <i class="fa-solid fa-rotate animate-spin text-2xl mb-3 block"></i>
+                                        Reading database entries...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <!-- Informational Help Banner -->
-            <div class="mt-4 p-3 bg-brand-50 rounded-lg border border-brand-100 flex items-start gap-3">
-                <i class="fa-solid fa-circle-question text-brand-500 mt-0.5 text-sm shrink-0"></i>
-                <div class="text-[11px] text-brand-600 leading-relaxed font-light">
-                    <strong>Beginner Note:</strong> This ledger is actively connected to your Firestore Database. Whenever you use another phone or laptop to view this page, any change you make here will automatically and immediately sync live across all screens!
-                </div>
+            <!-- Footer indicator banner inside main container -->
+            <div class="mt-6 p-3 bg-brand-50 rounded-lg border border-brand-100 flex items-center justify-between text-[11px] text-brand-500">
+                <span>Savakar partner: <strong>Shashidar Challapalli</strong></span>
+                <span>Active Weaves logged instantly</span>
             </div>
         </div>
     </section>
@@ -316,14 +387,14 @@
         <button onclick="toggleConfigModal()" class="absolute top-4 right-4 text-brand-400 hover:text-brand-900"><i class="fa-solid fa-xmark text-lg"></i></button>
         <div class="flex items-center gap-2 mb-4">
             <i class="fa-solid fa-database text-brand-500 text-xl"></i>
-            <h3 class="font-serif text-lg tracking-wider uppercase font-semibold text-brand-900">Database Setup (24/7 Hosting)</h3>
+            <h3 class="font-serif text-lg tracking-wider uppercase font-semibold text-brand-900">Database Setup</h3>
         </div>
         <p class="text-xs text-brand-600 leading-relaxed mb-4">
-            Currently, this ledger is running on our demonstration environment. To make this completely yours so you can access it on any phone forever (even if your PC is turned off), paste your free Firebase Web Setup Credentials here:
+            Currently running on demo data mode. Paste your free Google Firebase Credentials below to save your data permanently on Google Cloud:
         </p>
         <div class="space-y-3">
             <div>
-                <label class="text-[10px] uppercase font-bold text-brand-600 tracking-wider block mb-1">Firebase configuration JSON</label>
+                <label class="text-[10px] uppercase font-bold text-brand-600 tracking-wider block mb-1">Firebase Config JSON</label>
                 <textarea id="firebase-config-input" rows="7" class="w-full border border-brand-100 p-2 font-mono text-[10px] bg-brand-50 focus:outline-none focus:border-brand-500 rounded-lg" placeholder='{
   "apiKey": "AIzaSy...",
   "authDomain": "...firebaseapp.com",
@@ -366,8 +437,8 @@
 <!-- Footer details -->
 <footer class="bg-white border-t border-brand-100 py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-xs text-brand-400">
-        <p>&copy; 2026 Loom Weaver Home Ledger Studio. Simple and Offline-First ready.</p>
-        <p class="mt-2 md:mt-0 font-mono text-[10px]">Active Node Session ID: <span id="node-identifier" class="text-brand-700">Connecting...</span></p>
+        <p>&copy; Swarnam Loom Ledger. Customized for Savakar Shashidar Challapalli Accounts.</p>
+        <p class="mt-2 md:mt-0 font-mono text-[10px]">Session Status: <span id="node-identifier" class="text-brand-700">Connecting...</span></p>
     </div>
 </footer>
 
@@ -440,10 +511,10 @@
             setupLedgerListener();
 
         } catch (e) {
-            console.warn("Could not connect to custom Firestore network, running locally.", e);
+            console.warn("Could not connect to Firestore network, running locally.", e);
             document.getElementById('connection-status').className = "flex items-center gap-1.5 bg-rose-50 text-rose-800 border border-rose-200 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase";
-            document.getElementById('connection-status').innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span><span>Local Offline</span>`;
-            document.getElementById('node-identifier').textContent = "LocalStorage_Active";
+            document.getElementById('connection-status').innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span><span>Local Offline Mode</span>`;
+            document.getElementById('node-identifier').textContent = "LocalStore_Active";
             loadLocalBackupData();
         }
     }
@@ -482,12 +553,12 @@
                 globalLedgerRecords = [];
             }
         } else {
-            // Fill initial mock ledger data so beginner is not left with an empty screen
+            // Initial mock data customized to the user's workflow
             globalLedgerRecords = [
-                { docId: "m1", entryType: "production", date: "2026-06-18", sareeType: "Pure Silk Ilkal Saree", qty: 2, amount: 6500, totalValue: 13000, remarks: "Weaved with deep maroon body and gold zari border" },
-                { docId: "m2", entryType: "labour", date: "2026-06-19", workerName: "Ramesh weaver", amount: 3000, remarks: "Advance paid for next 3 sarees weaving work" },
-                { docId: "m3", entryType: "loan", date: "2026-06-15", loanType: "taken", amount: 50000, remarks: "Received loan from local bank for silk yarn material purchase" },
-                { docId: "m4", entryType: "transport", date: "2026-06-16", transportType: "incoming", amount: 1500, remarks: "Yarn raw material transport shipment cost from Bengaluru" }
+                { docId: "m1", entryType: "production", date: "2026-06-18", sareeType: "Pure Silk Ilkal Saree", qty: 10, amount: 540, totalValue: 5400, remarks: "Sent to Shashidar Challapalli" },
+                { docId: "m2", entryType: "labour", date: "2026-06-19", workerName: "Ramesh weaver", amount: 1500, remarks: "Weft weaved wages" },
+                { docId: "m3", entryType: "loan", date: "2026-06-15", loanType: "taken", amount: 2000, remarks: "Material advance" },
+                { docId: "m4", entryType: "transport", date: "2026-06-16", transportType: "incoming", amount: 450, remarks: "Yarn transport went cost" }
             ];
             localStorage.setItem('local_ledger_records', JSON.stringify(globalLedgerRecords));
         }
@@ -503,7 +574,7 @@
                 const collRef = collection(db, 'artifacts', appId, 'public', 'data', 'ledger_records');
                 
                 await addDoc(collRef, entryObj);
-                showToast("Entry added securely to Firestore database!", "fa-solid fa-cloud");
+                showToast("Entry added securely to Firestore!", "fa-solid fa-cloud");
             } catch (e) {
                 console.error("Could not write record: ", e);
                 saveOfflineFallback(entryObj);
@@ -565,11 +636,11 @@
         
         // Highlight chosen tab
         document.querySelectorAll('.form-tab').forEach(tab => {
-            tab.className = "form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all";
+            tab.className = "form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all";
         });
         
         const activeTab = document.getElementById(`tab-${type}`);
-        activeTab.className = "form-tab py-2 px-3 border border-brand-800 bg-brand-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all";
+        activeTab.className = "form-tab py-2 px-3 border border-brand-800 bg-brand-800 text-white rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all";
 
         // Toggle visibility of fields
         document.getElementById('fields-production').classList.add('hidden');
@@ -578,6 +649,24 @@
         document.getElementById('fields-transport').classList.add('hidden');
 
         document.getElementById(`fields-${type}`).classList.remove('hidden');
+    }
+
+    // Switch between settlement summary sheet and detailed records log
+    function switchView(viewId) {
+        document.getElementById('view-settlement-view').classList.add('hidden');
+        document.getElementById('view-logs-view').classList.add('hidden');
+        
+        document.getElementById(`view-${viewId}`).classList.remove('hidden');
+
+        // Toggle active design styles on tabs
+        document.getElementById('view-tab-settlement').className = "pb-3 text-xs uppercase font-bold tracking-wider border-b-2 text-brand-400 border-transparent focus:outline-none hover:text-brand-900 transition-all";
+        document.getElementById('view-tab-logs').className = "pb-3 text-xs uppercase font-bold tracking-wider border-b-2 text-brand-400 border-transparent focus:outline-none hover:text-brand-900 transition-all";
+
+        if (viewId === "settlement-view") {
+            document.getElementById('view-tab-settlement').className = "pb-3 text-xs uppercase font-bold tracking-wider border-b-2 border-brand-800 text-brand-900 flex items-center gap-1.5 focus:outline-none transition-all";
+        } else {
+            document.getElementById('view-tab-logs').className = "pb-3 text-xs uppercase font-bold tracking-wider border-b-2 border-brand-800 text-brand-900 flex items-center gap-1.5 focus:outline-none transition-all";
+        }
     }
 
     // Handling saving form input
@@ -600,15 +689,10 @@
 
         // Capture fields depending on option
         if (activeFormType === "production") {
-            const sareeType = document.getElementById('saree-type').value || "Traditional Saree";
+            const sareeType = document.getElementById('saree-type').value || "Pure Silk Saree";
             const qty = parseInt(document.getElementById('saree-qty').value) || 1;
-            const price = parseFloat(document.getElementById('saree-price').value) || 0;
+            const price = parseFloat(document.getElementById('saree-price').value) || 540; // Default ₹540
             const totalValue = qty * price;
-
-            if (price <= 0) {
-                showAlert("Missing Saree Price", "Please provide a price value for the saree.", "fa-solid fa-indian-rupee-sign");
-                return;
-            }
 
             entryObj.sareeType = sareeType;
             entryObj.qty = qty;
@@ -616,7 +700,7 @@
             entryObj.totalValue = totalValue;
 
         } else if (activeFormType === "labour") {
-            const labourName = document.getElementById('labour-name').value || "Generic Labour";
+            const labourName = document.getElementById('labour-name').value || "Helper Weaver";
             const amount = parseFloat(document.getElementById('labour-amount').value) || 0;
 
             if (amount <= 0) {
@@ -652,13 +736,13 @@
             entryObj.amount = amount;
         }
 
-        // Add to Firestore database via global listener handle
+        // Add to database
         window.addLedgerEntry(entryObj);
 
         // Reset inputs cleanly
         document.getElementById('saree-type').value = "";
         document.getElementById('saree-qty').value = "";
-        document.getElementById('saree-price').value = "";
+        document.getElementById('saree-price').value = "540"; // Keep ₹540 default
         document.getElementById('labour-name').value = "";
         document.getElementById('labour-amount').value = "";
         document.getElementById('loan-amount').value = "";
@@ -698,10 +782,12 @@
 
         // Compute balances
         const outstandingLoan = totalLoanTaken - totalLoanRepaid;
-        // Estimated Net Profit formula = Production Revenue - Wages - Transport
-        const netCashProfit = totalProductionValue - totalLabourPaid - totalTransportCost;
+        
+        // Dynamic settlement logic requested:
+        // Net Pending Savakar Balance = Total Saree Production - Labour Wages - Outstanding Loan - Transport Cost
+        const netCashSettlement = totalProductionValue - totalLabourPaid - outstandingLoan - totalTransportCost;
 
-        // Render counters to HTML
+        // Render counters to HTML Top Header Dashboard
         document.getElementById('stat-production').textContent = `₹${totalProductionValue.toLocaleString('en-IN')}`;
         document.getElementById('stat-qty').textContent = `${totalSareeQuantity} pcs`;
 
@@ -714,7 +800,22 @@
         document.getElementById('stat-transport').textContent = `₹${totalTransportCost.toLocaleString('en-IN')}`;
         document.getElementById('stat-transport-count').textContent = `${totalTransportTxCount} times`;
 
-        document.getElementById('stat-net').textContent = `₹${netCashProfit.toLocaleString('en-IN')}`;
+        document.getElementById('stat-net').textContent = `₹${netCashSettlement.toLocaleString('en-IN')}`;
+
+        // Render values to Page 1: Savakar Net Deduction Sheet
+        document.getElementById('calc-saree-val').textContent = `₹${totalProductionValue.toLocaleString('en-IN')}`;
+        document.getElementById('calc-labour').textContent = `-₹${totalLabourPaid.toLocaleString('en-IN')}`;
+        document.getElementById('calc-loan').textContent = `-₹${outstandingLoan.toLocaleString('en-IN')}`;
+        document.getElementById('calc-transport').textContent = `-₹${totalTransportCost.toLocaleString('en-IN')}`;
+        
+        // Final due highlighting
+        const finalDueElem = document.getElementById('calc-final-due');
+        finalDueElem.textContent = `₹${netCashSettlement.toLocaleString('en-IN')}`;
+        if (netCashSettlement < 0) {
+            finalDueElem.className = "text-xl sm:text-2xl font-black text-rose-600";
+        } else {
+            finalDueElem.className = "text-xl sm:text-2xl font-black text-emerald-700";
+        }
     }
 
     // Render Database Log Table rows dynamically
@@ -737,7 +838,7 @@
             tbody.innerHTML = `
                 <tr>
                     <td colspan="6" class="p-8 text-center text-brand-400 font-light">
-                        No transactions match the selected filter.
+                        No transactions logged yet.
                     </td>
                 </tr>
             `;
@@ -753,7 +854,7 @@
 
             if (item.entryType === "production") {
                 badgeClass = "bg-emerald-50 text-emerald-800 border-emerald-200";
-                badgeText = "Production";
+                badgeText = "Saree Sent";
                 iconMarkup = `<i class="fa-solid fa-socks text-emerald-700"></i>`;
                 detailsMarkup = `
                     <div class="font-semibold text-brand-900">${item.sareeType}</div>
@@ -767,29 +868,29 @@
                 iconMarkup = `<i class="fa-solid fa-user-gear text-amber-700"></i>`;
                 detailsMarkup = `
                     <div class="font-semibold text-brand-900">Paid to: ${item.workerName}</div>
-                    <div class="text-[10px] text-brand-400">Weaver wage payouts</div>
+                    <div class="text-[10px] text-brand-400">Wages deducted from Savakar ledger</div>
                 `;
                 amountMarkup = `<span class="text-amber-700 font-bold">-₹${item.amount.toLocaleString('en-IN')}</span>`;
             } 
             else if (item.entryType === "loan") {
                 const isRepaid = item.loanType === "repaid";
                 badgeClass = isRepaid ? "bg-indigo-50 text-indigo-800 border-indigo-200" : "bg-rose-50 text-rose-800 border-rose-200";
-                badgeText = isRepaid ? "Loan Paid Back" : "Loan Received";
+                badgeText = isRepaid ? "Loan Paid Back" : "Loan Borrowed";
                 iconMarkup = isRepaid ? `<i class="fa-solid fa-circle-arrow-down text-indigo-700"></i>` : `<i class="fa-solid fa-circle-arrow-up text-rose-700"></i>`;
                 detailsMarkup = `
                     <div class="font-semibold text-brand-900">${isRepaid ? 'Paid off debt' : 'Loan Borrowed'}</div>
-                    <div class="text-[10px] text-brand-400">Financial Ledger entry</div>
+                    <div class="text-[10px] text-brand-400">Adjusted against Savakar pool</div>
                 `;
                 amountMarkup = `<span class="${isRepaid ? 'text-indigo-700' : 'text-rose-700'} font-bold">${isRepaid ? '-₹' : '+₹'}${item.amount.toLocaleString('en-IN')}</span>`;
             } 
             else if (item.entryType === "transport") {
                 const isOut = item.transportType === "outgoing";
                 badgeClass = "bg-purple-50 text-purple-800 border-purple-200";
-                badgeText = isOut ? "Saree Delivery" : "Yarn Material";
+                badgeText = isOut ? "Sarees Delivered" : "Yarn Went In";
                 iconMarkup = `<i class="fa-solid fa-truck text-purple-700"></i>`;
                 detailsMarkup = `
-                    <div class="font-semibold text-brand-900">Transport: ${isOut ? 'Outgoing Shipment' : 'Incoming Raw Goods'}</div>
-                    <div class="text-[10px] text-brand-400">Logistics fuel/carriage charges</div>
+                    <div class="font-semibold text-brand-900">Transport: ${isOut ? 'Sarees Sent Out' : 'Raw Materials Coming In'}</div>
+                    <div class="text-[10px] text-brand-400">Freight carriage fee</div>
                 `;
                 amountMarkup = `<span class="text-purple-700 font-bold">-₹${item.amount.toLocaleString('en-IN')}</span>`;
             }
@@ -826,7 +927,6 @@
         }
     }
 
-    // Trigger local memory query change
     function filterLedgerData() {
         renderLedgerTable(window.getGlobalRecords());
     }
@@ -840,13 +940,12 @@
         }
 
         let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += "Date,Entry Type,Details,Secondary Type,Value,Notes\r\n";
+        csvContent += "Date,Type,Details,Value,Notes\r\n";
 
         records.forEach(item => {
             const rowDate = item.date;
             const rowType = item.entryType;
             let rowDetails = "";
-            let subType = "";
             let rowVal = 0;
 
             if (rowType === "production") {
@@ -856,27 +955,25 @@
                 rowDetails = `"${item.workerName}"`;
                 rowVal = item.amount;
             } else if (rowType === "loan") {
-                rowDetails = "Loan Balance";
-                subType = item.loanType;
+                rowDetails = `"${item.loanType === 'repaid' ? 'Loan Paid' : 'Loan Taken'}"`;
                 rowVal = item.amount;
             } else if (rowType === "transport") {
-                rowDetails = "Carriage Fee";
-                subType = item.transportType;
+                rowDetails = `"${item.transportType === 'outgoing' ? 'Saree Delivery' : 'Yarn Carriage'}"`;
                 rowVal = item.amount;
             }
 
             const cleanRemarks = item.remarks ? `"${item.remarks.replace(/"/g, '""')}"` : "";
-            csvContent += `${rowDate},${rowType},${rowDetails},${subType},${rowVal},${cleanRemarks}\r\n`;
+            csvContent += `${rowDate},${rowType},${rowDetails},${rowVal},${cleanRemarks}\r\n`;
         });
 
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "Loom_Weaver_Home_Ledger.csv");
+        link.setAttribute("download", "Shashidar_Challapalli_Savakar_Ledger.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        showToast("Excel compatible CSV file downloaded!");
+        showToast("Excel CSV file downloaded!");
     }
 
     // Modal Control systems
@@ -890,7 +987,7 @@
         try {
             const parsed = JSON.parse(value);
             localStorage.setItem('handloom_ledger_config', JSON.stringify(parsed));
-            showToast("Credentials saved successfully! Reloading pages...", "fa-solid fa-arrows-rotate");
+            showToast("Credentials saved! Page reloading...", "fa-solid fa-arrows-rotate");
             setTimeout(() => {
                 window.location.reload();
             }, 1000);
@@ -901,13 +998,13 @@
 
     function resetFirebaseConfig() {
         localStorage.removeItem('handloom_ledger_config');
-        showToast("Reset to generic database defaults. Reloading page...", "fa-solid fa-arrows-rotate");
+        showToast("Reset to defaults! Page reloading...", "fa-solid fa-arrows-rotate");
         setTimeout(() => {
             window.location.reload();
         }, 1000);
     }
 
-    // Safe Non-alert popup replacements
+    // Custom alerts instead of alert()
     function showAlert(title, message, iconClass = "fa-solid fa-circle-exclamation") {
         document.getElementById('alert-title').textContent = title;
         document.getElementById('alert-message').textContent = message;
@@ -938,3 +1035,16 @@
 </script>
 </body>
 </html>
+```
+eof
+
+---
+
+### What to do next:
+1. Open the code editor on your right containing `Handloom Business Ledger:index.html`.
+2. **Replace all code** inside it with the new code from the file box above.
+3. Save the file on your computer as `index.html`.
+4. Now, double-click to run it! 
+5. Go to GitHub and drag-and-drop the updated `index.html` file into your repository so it gets updated on your phone live web address.
+
+The math calculation is now automated perfectly according to your loom business! Let me know how it works for you!
