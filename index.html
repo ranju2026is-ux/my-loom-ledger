@@ -1,1 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swarnam Loom Ledger | Handloom Business Tracker</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter (Clean, legible sans for numbers) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf8f6',
+                            100: '#fbeee9',
+                            500: '#d97706', // Gold / Amber
+                            800: '#7c2d12', // Warm terracotta red / brown
+                            900: '#431407'  // Deep charcoal warm
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fbeee9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-brand-50 text-brand-900 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
+<!-- Sticky Header -->
+<header class="bg-white border-b border-brand-100 shadow-sm sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-brand-800 flex items-center justify-center text-white text-lg shadow-md">
+                <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-base sm:text-lg tracking-tight leading-none text-brand-900">Swarnam Loom Ledger</h1>
+                <p class="text-[10px] sm:text-xs text-brand-500 font-medium">Daily Production, Labour, Loan & Transport Log</p>
+            </div>
+        </div>
+
+        <!-- Database Settings Quick Button & Connection Pill -->
+        <div class="flex items-center gap-3">
+            <div id="connection-status" class="flex items-center gap-1.5 bg-yellow-50 text-yellow-800 border border-yellow-200 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase">
+                <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
+                <span class="hidden sm:inline">Connecting...</span>
+            </div>
+            <button onclick="toggleConfigModal()" class="text-xs bg-brand-100 hover:bg-brand-500 hover:text-white text-brand-800 transition-all font-medium py-1.5 px-3 rounded-md flex items-center gap-1">
+                <i class="fa-solid fa-database"></i> <span class="hidden sm:inline">Settings</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+    
+    <!-- Business Real-time Dashboard Summary -->
+    <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+        <!-- 1. Saree production value generated -->
+        <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
+            <div>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Total Saree Production</span>
+                <h3 id="stat-production" class="text-xl sm:text-2xl font-bold text-emerald-700 mt-1">₹0</h3>
+            </div>
+            <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
+                <span>Quantity Weaved:</span>
+                <span id="stat-qty" class="font-bold text-brand-800">0 pcs</span>
+            </div>
+        </div>
+
+        <!-- 2. Labour Paid -->
+        <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
+            <div>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Labour Wages Paid</span>
+                <h3 id="stat-labour" class="text-xl sm:text-2xl font-bold text-amber-700 mt-1">₹0</h3>
+            </div>
+            <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
+                <span>Total transactions:</span>
+                <span id="stat-labour-count" class="font-bold text-brand-800">0 times</span>
+            </div>
+        </div>
+
+        <!-- 3. Outstanding Loans -->
+        <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
+            <div>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Outstanding Loan</span>
+                <h3 id="stat-loan" class="text-xl sm:text-2xl font-bold text-rose-700 mt-1">₹0</h3>
+            </div>
+            <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
+                <span>Total Repaid:</span>
+                <span id="stat-loan-repaid" class="font-bold text-brand-800">₹0</span>
+            </div>
+        </div>
+
+        <!-- 4. Transport Spent -->
+        <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
+            <div>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Transport Expense</span>
+                <h3 id="stat-transport" class="text-xl sm:text-2xl font-bold text-indigo-700 mt-1">₹0</h3>
+            </div>
+            <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
+                <span>In & Out transport:</span>
+                <span id="stat-transport-count" class="font-bold text-brand-800">0 times</span>
+            </div>
+        </div>
+
+        <!-- 5. Net Cash Remaining -->
+        <div class="col-span-2 lg:col-span-1 bg-brand-900 text-brand-100 p-4 rounded-xl shadow-md relative overflow-hidden flex flex-col justify-between">
+            <div>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-300 block">Net Estimated Profit</span>
+                <h3 id="stat-net" class="text-xl sm:text-2xl font-bold text-white mt-1">₹0</h3>
+            </div>
+            <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-800 text-[10px] text-brand-300">
+                <span>(Production - Expenses)</span>
+                <i class="fa-solid fa-coins text-brand-500"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Panel & Entry Form -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- New Transaction Input form (Loom operator friendly) -->
+        <div class="lg:col-span-4 bg-white border border-brand-100 rounded-xl shadow-sm p-4 sm:p-5 space-y-4">
+            <div class="flex items-center gap-2 pb-3 border-b border-brand-100">
+                <i class="fa-solid fa-plus-circle text-brand-800 text-lg"></i>
+                <h2 class="font-bold text-sm tracking-wide text-brand-900 uppercase">Log New Handloom Entry</h2>
+            </div>
+
+            <!-- Selector Buttons for entry types -->
+            <div>
+                <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-2">Select Entry Type</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="setFormType('production')" id="tab-production" class="form-tab py-2 px-3 border border-brand-800 bg-brand-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-socks"></i> Saree Production
+                    </button>
+                    <button type="button" onclick="setFormType('labour')" id="tab-labour" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-user-gear"></i> Labour Pay
+                    </button>
+                    <button type="button" onclick="setFormType('loan')" id="tab-loan" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-hand-holding-dollar"></i> Loan Transaction
+                    </button>
+                    <button type="button" onclick="setFormType('transport')" id="tab-transport" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-truck"></i> Transport Fee
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Entry Form Inputs -->
+            <form id="ledger-form" onsubmit="handleFormSubmit(event)" class="space-y-3 pt-2">
+                <!-- Date Field (Shared by all) -->
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Date</label>
+                    <input type="date" id="input-date" required class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                </div>
+
+                <!-- Fields for Production -->
+                <div id="fields-production" class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Saree Type (e.g., Ilkal Silk, Banarasi, Cotton)</label>
+                        <input type="text" id="saree-type" placeholder="e.g. Traditional Ilkal Saree" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Quantity Weaved</label>
+                            <input type="number" min="1" id="saree-qty" placeholder="1" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Price per Saree (₹)</label>
+                            <input type="number" min="0" id="saree-price" placeholder="4500" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fields for Labour -->
+                <div id="fields-labour" class="space-y-3 hidden">
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Labour/Weaver Name</label>
+                        <input type="text" id="labour-name" placeholder="e.g. Ramesh" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Wages/Amount Paid (₹)</label>
+                        <input type="number" min="0" id="labour-amount" placeholder="2500" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                    </div>
+                </div>
+
+                <!-- Fields for Loan -->
+                <div id="fields-loan" class="space-y-3 hidden">
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Loan Transaction Type</label>
+                        <select id="loan-subtype" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                            <option value="taken">Loan Received (Cash Inflow)</option>
+                            <option value="repaid">Loan Paid Back (Payoff)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Loan Amount (₹)</label>
+                        <input type="number" min="0" id="loan-amount" placeholder="10000" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                    </div>
+                </div>
+
+                <!-- Fields for Transport -->
+                <div id="fields-transport" class="space-y-3 hidden">
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Transport Category</label>
+                        <select id="transport-direction" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                            <option value="incoming">Yarn/Raw Material Transport (In)</option>
+                            <option value="outgoing">Saree Delivery/Shipment (Out)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Transport Cost (₹)</label>
+                        <input type="number" min="0" id="transport-amount" placeholder="450" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                    </div>
+                </div>
+
+                <!-- Notes / Remarks field -->
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Notes / Remarks</label>
+                    <textarea id="input-notes" rows="2" placeholder="Write any specific detail here..." class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500"></textarea>
+                </div>
+
+                <!-- Action Button -->
+                <button type="submit" class="w-full bg-brand-800 hover:bg-brand-500 text-white font-semibold py-3 px-4 rounded-lg text-xs uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Save Entry
+                </button>
+            </form>
+        </div>
+
+        <!-- Right side: Interactive database list & Filter -->
+        <div class="lg:col-span-8 bg-white border border-brand-100 rounded-xl shadow-sm p-4 sm:p-5 flex flex-col justify-between min-h-[450px]">
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-brand-100">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-brand-800 text-lg"></i>
+                        <h2 class="font-bold text-sm tracking-wide text-brand-900 uppercase">Live Handloom Database Log</h2>
+                    </div>
+                    <!-- Quick local month filter -->
+                    <div class="flex gap-2">
+                        <select id="filter-type" onchange="filterLedgerData()" class="border border-brand-100 rounded-lg px-3 py-1.5 text-xs focus:outline-none bg-brand-50 text-brand-800 font-semibold">
+                            <option value="all">All Logs</option>
+                            <option value="production">Production Only</option>
+                            <option value="labour">Labour Only</option>
+                            <option value="loan">Loans Only</option>
+                            <option value="transport">Transport Only</option>
+                        </select>
+                        <button onclick="exportToCSV()" class="bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-800 font-semibold py-1.5 px-3 rounded-lg text-xs flex items-center gap-1.5 transition-all">
+                            <i class="fa-solid fa-file-excel"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Real-time List Container -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="bg-brand-50 text-brand-600 uppercase text-[9px] tracking-wider border-b border-brand-100">
+                                <th class="p-3">Date</th>
+                                <th class="p-3">Type</th>
+                                <th class="p-3">Primary Info</th>
+                                <th class="p-3">Financial Value</th>
+                                <th class="p-3">Notes</th>
+                                <th class="p-3 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledger-rows" class="divide-y divide-brand-100">
+                            <!-- Injected dynamically via Firestore -->
+                            <tr>
+                                <td colspan="6" class="p-12 text-center text-brand-400">
+                                    <i class="fa-solid fa-rotate animate-spin text-2xl mb-3 block"></i>
+                                    Reading real-time ledger data entries...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Informational Help Banner -->
+            <div class="mt-4 p-3 bg-brand-50 rounded-lg border border-brand-100 flex items-start gap-3">
+                <i class="fa-solid fa-circle-question text-brand-500 mt-0.5 text-sm shrink-0"></i>
+                <div class="text-[11px] text-brand-600 leading-relaxed font-light">
+                    <strong>Beginner Note:</strong> This ledger is actively connected to your Firestore Database. Whenever you use another phone or laptop to view this page, any change you make here will automatically and immediately sync live across all screens!
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Custom Firebase configuration screen (so they can make it their own free cloud DB) -->
+<div id="config-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-900/60 backdrop-blur-md hidden transition-all duration-300">
+    <div class="bg-white max-w-lg w-full p-6 border border-brand-200 shadow-2xl relative rounded-xl">
+        <button onclick="toggleConfigModal()" class="absolute top-4 right-4 text-brand-400 hover:text-brand-900"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <div class="flex items-center gap-2 mb-4">
+            <i class="fa-solid fa-database text-brand-500 text-xl"></i>
+            <h3 class="font-serif text-lg tracking-wider uppercase font-semibold text-brand-900">Database Setup (24/7 Hosting)</h3>
+        </div>
+        <p class="text-xs text-brand-600 leading-relaxed mb-4">
+            Currently, this ledger is running on our demonstration environment. To make this completely yours so you can access it on any phone forever (even if your PC is turned off), paste your free Firebase Web Setup Credentials here:
+        </p>
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] uppercase font-bold text-brand-600 tracking-wider block mb-1">Firebase configuration JSON</label>
+                <textarea id="firebase-config-input" rows="7" class="w-full border border-brand-100 p-2 font-mono text-[10px] bg-brand-50 focus:outline-none focus:border-brand-500 rounded-lg" placeholder='{
+  "apiKey": "AIzaSy...",
+  "authDomain": "...firebaseapp.com",
+  "projectId": "...",
+  "storageBucket": "...",
+  "messagingSenderId": "...",
+  "appId": "..."
+}'></textarea>
+            </div>
+            <button onclick="saveCustomFirebaseConfig()" class="w-full py-3 bg-brand-800 hover:bg-brand-500 text-white font-semibold uppercase text-xs tracking-widest transition-colors rounded-lg">
+                Apply My Personal Database
+            </button>
+            <button onclick="resetFirebaseConfig()" class="w-full py-1.5 text-brand-400 hover:text-red-500 text-[10px] uppercase tracking-widest font-semibold transition-colors">
+                Reset to Global Demo Database
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Simple Custom Alert System (Replacing alert() to avoid iframe crashes) -->
+<div id="alert-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-900/60 backdrop-blur-sm hidden">
+    <div class="bg-white max-w-sm w-full p-6 rounded-xl border border-brand-100 shadow-xl text-center space-y-4">
+        <div id="alert-icon" class="w-12 h-12 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center text-xl mx-auto">
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <h4 id="alert-title" class="font-bold text-sm tracking-wide text-brand-900 uppercase">Attention Required</h4>
+        <p id="alert-message" class="text-xs text-brand-600 leading-relaxed font-light"></p>
+        <button onclick="closeAlertModal()" class="w-full bg-brand-800 hover:bg-brand-500 text-white font-semibold py-2.5 rounded-lg text-xs uppercase tracking-wider transition-colors">
+            Understood
+        </button>
+    </div>
+</div>
+
+<!-- Floating Toast Alerts -->
+<div id="toast" class="fixed bottom-6 right-6 z-50 bg-brand-900 text-brand-50 px-5 py-3 shadow-xl border border-brand-800 rounded-lg flex items-center gap-3 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none">
+    <i class="fa-solid fa-circle-check text-brand-500" id="toast-icon"></i>
+    <span id="toast-message" class="text-xs uppercase tracking-wider font-semibold">Message Sent</span>
+</div>
+
+<!-- Footer details -->
+<footer class="bg-white border-t border-brand-100 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-xs text-brand-400">
+        <p>&copy; 2026 Loom Weaver Home Ledger Studio. Simple and Offline-First ready.</p>
+        <p class="mt-2 md:mt-0 font-mono text-[10px]">Active Node Session ID: <span id="node-identifier" class="text-brand-700">Connecting...</span></p>
+    </div>
+</footer>
+
+<!-- Firestore Real-time Engine Module -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Application state values
+    let app, db, auth;
+    let globalLedgerRecords = [];
+
+    // Fallback Mock Demo database config
+    const demoFirebaseConfig = {
+        apiKey: "AIzaSyAs-demo-key-123456789",
+        authDomain: "swarnam-weaver-ledger.firebaseapp.com",
+        projectId: "swarnam-weaver-ledger",
+        storageBucket: "swarnam-weaver-ledger.appspot.com",
+        messagingSenderId: "1234567890",
+        appId: "1:1234567890:web:abcdef123456"
+    };
+
+    // Pull configuration details
+    window.getSavedFirebaseConfig = function() {
+        const local = localStorage.getItem('handloom_ledger_config');
+        if (local) {
+            try {
+                return JSON.parse(local);
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    // Set configuration inputs
+    const inputArea = document.getElementById('firebase-config-input');
+    const saved = getSavedFirebaseConfig();
+    if (saved) {
+        inputArea.value = JSON.stringify(saved, null, 2);
+    }
+
+    // Setup date picker to today automatically
+    document.getElementById('input-date').valueAsDate = new Date();
+
+    async function initializeLedgerDatabase() {
+        const config = getSavedFirebaseConfig() || (typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : demoFirebaseConfig);
+        
+        try {
+            app = initializeApp(config);
+            db = getFirestore(app);
+            auth = getAuth(app);
+
+            // Authentication Setup before queries (RULE 3)
+            let user;
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                user = await signInWithCustomToken(auth, __initial_auth_token).catch(() => signInAnonymously(auth));
+            } else {
+                user = await signInAnonymously(auth);
+            }
+
+            const uid = auth.currentUser?.uid || crypto.randomUUID();
+            
+            // Adjust visual network connections
+            document.getElementById('connection-status').className = "flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase";
+            document.getElementById('connection-status').innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span>Real-Time Online</span>`;
+            document.getElementById('node-identifier').textContent = uid;
+
+            setupLedgerListener();
+
+        } catch (e) {
+            console.warn("Could not connect to custom Firestore network, running locally.", e);
+            document.getElementById('connection-status').className = "flex items-center gap-1.5 bg-rose-50 text-rose-800 border border-rose-200 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase";
+            document.getElementById('connection-status').innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span><span>Local Offline</span>`;
+            document.getElementById('node-identifier').textContent = "LocalStorage_Active";
+            loadLocalBackupData();
+        }
+    }
+
+    // Setup Realtime Database Stream
+    function setupLedgerListener() {
+        if (!auth.currentUser) return;
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'home-handloom-accounting';
+        
+        // RULE 1: Strict database structure hierarchy
+        const collRef = collection(db, 'artifacts', appId, 'public', 'data', 'ledger_records');
+
+        // RULE 2: Keep simple queries, do memory operations to prevent compound index errors
+        onSnapshot(collRef, (snapshot) => {
+            const temp = [];
+            snapshot.forEach(docSnap => {
+                temp.push({ docId: docSnap.id, ...docSnap.data() });
+            });
+            globalLedgerRecords = temp;
+            renderLedgerTable(temp);
+            recalculateDashboardTotals(temp);
+        }, (error) => {
+            console.error("Firestore live read error: ", error);
+            loadLocalBackupData();
+        });
+    }
+
+    // Offline LocalStorage Backup in case Firestore setup isn't complete yet
+    function loadLocalBackupData() {
+        const localData = localStorage.getItem('local_ledger_records');
+        if (localData) {
+            try {
+                globalLedgerRecords = JSON.parse(localData);
+            } catch (e) {
+                globalLedgerRecords = [];
+            }
+        } else {
+            // Fill initial mock ledger data so beginner is not left with an empty screen
+            globalLedgerRecords = [
+                { docId: "m1", entryType: "production", date: "2026-06-18", sareeType: "Pure Silk Ilkal Saree", qty: 2, amount: 6500, totalValue: 13000, remarks: "Weaved with deep maroon body and gold zari border" },
+                { docId: "m2", entryType: "labour", date: "2026-06-19", workerName: "Ramesh weaver", amount: 3000, remarks: "Advance paid for next 3 sarees weaving work" },
+                { docId: "m3", entryType: "loan", date: "2026-06-15", loanType: "taken", amount: 50000, remarks: "Received loan from local bank for silk yarn material purchase" },
+                { docId: "m4", entryType: "transport", date: "2026-06-16", transportType: "incoming", amount: 1500, remarks: "Yarn raw material transport shipment cost from Bengaluru" }
+            ];
+            localStorage.setItem('local_ledger_records', JSON.stringify(globalLedgerRecords));
+        }
+        renderLedgerTable(globalLedgerRecords);
+        recalculateDashboardTotals(globalLedgerRecords);
+    }
+
+    // Save New entry into Firestore (or Local fallback)
+    window.addLedgerEntry = async function(entryObj) {
+        if (db && auth?.currentUser) {
+            try {
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'home-handloom-accounting';
+                const collRef = collection(db, 'artifacts', appId, 'public', 'data', 'ledger_records');
+                
+                await addDoc(collRef, entryObj);
+                showToast("Entry added securely to Firestore database!", "fa-solid fa-cloud");
+            } catch (e) {
+                console.error("Could not write record: ", e);
+                saveOfflineFallback(entryObj);
+            }
+        } else {
+            saveOfflineFallback(entryObj);
+        }
+    }
+
+    function saveOfflineFallback(entryObj) {
+        entryObj.docId = "local-" + Date.now();
+        globalLedgerRecords.push(entryObj);
+        localStorage.setItem('local_ledger_records', JSON.stringify(globalLedgerRecords));
+        showToast("Entry saved to local device browser!", "fa-solid fa-file-shield");
+        renderLedgerTable(globalLedgerRecords);
+        recalculateDashboardTotals(globalLedgerRecords);
+    }
+
+    // Delete record from Database
+    window.deleteRecord = async function(docId) {
+        if (db && auth?.currentUser && !docId.startsWith('local-') && docId !== "m1" && docId !== "m2" && docId !== "m3" && docId !== "m4") {
+            try {
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'home-handloom-accounting';
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'ledger_records', docId);
+                await deleteDoc(docRef);
+                showToast("Entry deleted successfully!", "fa-solid fa-trash-can");
+            } catch (e) {
+                console.error("Failed to delete database record: ", e);
+                deleteOfflineFallback(docId);
+            }
+        } else {
+            deleteOfflineFallback(docId);
+        }
+    }
+
+    function deleteOfflineFallback(docId) {
+        globalLedgerRecords = globalLedgerRecords.filter(item => item.docId !== docId);
+        localStorage.setItem('local_ledger_records', JSON.stringify(globalLedgerRecords));
+        showToast("Record deleted locally.", "fa-solid fa-trash");
+        renderLedgerTable(globalLedgerRecords);
+        recalculateDashboardTotals(globalLedgerRecords);
+    }
+
+    // Connect to Firestore setup
+    initializeLedgerDatabase();
+
+    // Export public handle to allow filter functions
+    window.getGlobalRecords = function() {
+        return globalLedgerRecords;
+    }
+</script>
+
+<!-- Local UI operations script -->
+<script>
+    let activeFormType = "production";
+
+    function setFormType(type) {
+        activeFormType = type;
+        
+        // Highlight chosen tab
+        document.querySelectorAll('.form-tab').forEach(tab => {
+            tab.className = "form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all";
+        });
+        
+        const activeTab = document.getElementById(`tab-${type}`);
+        activeTab.className = "form-tab py-2 px-3 border border-brand-800 bg-brand-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all";
+
+        // Toggle visibility of fields
+        document.getElementById('fields-production').classList.add('hidden');
+        document.getElementById('fields-labour').classList.add('hidden');
+        document.getElementById('fields-loan').classList.add('hidden');
+        document.getElementById('fields-transport').classList.add('hidden');
+
+        document.getElementById(`fields-${type}`).classList.remove('hidden');
+    }
+
+    // Handling saving form input
+    function handleFormSubmit(e) {
+        e.preventDefault();
+
+        const date = document.getElementById('input-date').value;
+        const remarks = document.getElementById('input-notes').value || "";
+
+        if (!date) {
+            showAlert("Error", "Please pick a valid calendar date.", "fa-solid fa-calendar-times");
+            return;
+        }
+
+        let entryObj = {
+            entryType: activeFormType,
+            date: date,
+            remarks: remarks
+        };
+
+        // Capture fields depending on option
+        if (activeFormType === "production") {
+            const sareeType = document.getElementById('saree-type').value || "Traditional Saree";
+            const qty = parseInt(document.getElementById('saree-qty').value) || 1;
+            const price = parseFloat(document.getElementById('saree-price').value) || 0;
+            const totalValue = qty * price;
+
+            if (price <= 0) {
+                showAlert("Missing Saree Price", "Please provide a price value for the saree.", "fa-solid fa-indian-rupee-sign");
+                return;
+            }
+
+            entryObj.sareeType = sareeType;
+            entryObj.qty = qty;
+            entryObj.amount = price;
+            entryObj.totalValue = totalValue;
+
+        } else if (activeFormType === "labour") {
+            const labourName = document.getElementById('labour-name').value || "Generic Labour";
+            const amount = parseFloat(document.getElementById('labour-amount').value) || 0;
+
+            if (amount <= 0) {
+                showAlert("Wages Empty", "Wages/amount cannot be blank or zero.", "fa-solid fa-coins");
+                return;
+            }
+
+            entryObj.workerName = labourName;
+            entryObj.amount = amount;
+
+        } else if (activeFormType === "loan") {
+            const loanType = document.getElementById('loan-subtype').value; // 'taken' or 'repaid'
+            const amount = parseFloat(document.getElementById('loan-amount').value) || 0;
+
+            if (amount <= 0) {
+                showAlert("Amount Missing", "Please input a valid amount of loan.", "fa-solid fa-circle-exclamation");
+                return;
+            }
+
+            entryObj.loanType = loanType;
+            entryObj.amount = amount;
+
+        } else if (activeFormType === "transport") {
+            const direction = document.getElementById('transport-direction').value; // 'incoming' or 'outgoing'
+            const amount = parseFloat(document.getElementById('transport-amount').value) || 0;
+
+            if (amount <= 0) {
+                showAlert("Expense Blank", "Please provide the exact transport expense charge.", "fa-solid fa-truck");
+                return;
+            }
+
+            entryObj.transportType = direction;
+            entryObj.amount = amount;
+        }
+
+        // Add to Firestore database via global listener handle
+        window.addLedgerEntry(entryObj);
+
+        // Reset inputs cleanly
+        document.getElementById('saree-type').value = "";
+        document.getElementById('saree-qty').value = "";
+        document.getElementById('saree-price').value = "";
+        document.getElementById('labour-name').value = "";
+        document.getElementById('labour-amount').value = "";
+        document.getElementById('loan-amount').value = "";
+        document.getElementById('transport-amount').value = "";
+        document.getElementById('input-notes').value = "";
+    }
+
+    // Dynamic Calculations of Handloom Ledger totals
+    function recalculateDashboardTotals(records) {
+        let totalProductionValue = 0;
+        let totalSareeQuantity = 0;
+        let totalLabourPaid = 0;
+        let totalLabourTxCount = 0;
+        let totalLoanTaken = 0;
+        let totalLoanRepaid = 0;
+        let totalTransportCost = 0;
+        let totalTransportTxCount = 0;
+
+        records.forEach(item => {
+            if (item.entryType === "production") {
+                totalProductionValue += parseFloat(item.totalValue || 0);
+                totalSareeQuantity += parseInt(item.qty || 0);
+            } else if (item.entryType === "labour") {
+                totalLabourPaid += parseFloat(item.amount || 0);
+                totalLabourTxCount++;
+            } else if (item.entryType === "loan") {
+                if (item.loanType === "taken") {
+                    totalLoanTaken += parseFloat(item.amount || 0);
+                } else if (item.loanType === "repaid") {
+                    totalLoanRepaid += parseFloat(item.amount || 0);
+                }
+            } else if (item.entryType === "transport") {
+                totalTransportCost += parseFloat(item.amount || 0);
+                totalTransportTxCount++;
+            }
+        });
+
+        // Compute balances
+        const outstandingLoan = totalLoanTaken - totalLoanRepaid;
+        // Estimated Net Profit formula = Production Revenue - Wages - Transport
+        const netCashProfit = totalProductionValue - totalLabourPaid - totalTransportCost;
+
+        // Render counters to HTML
+        document.getElementById('stat-production').textContent = `₹${totalProductionValue.toLocaleString('en-IN')}`;
+        document.getElementById('stat-qty').textContent = `${totalSareeQuantity} pcs`;
+
+        document.getElementById('stat-labour').textContent = `₹${totalLabourPaid.toLocaleString('en-IN')}`;
+        document.getElementById('stat-labour-count').textContent = `${totalLabourTxCount} times`;
+
+        document.getElementById('stat-loan').textContent = `₹${outstandingLoan.toLocaleString('en-IN')}`;
+        document.getElementById('stat-loan-repaid').textContent = `₹${totalLoanRepaid.toLocaleString('en-IN')}`;
+
+        document.getElementById('stat-transport').textContent = `₹${totalTransportCost.toLocaleString('en-IN')}`;
+        document.getElementById('stat-transport-count').textContent = `${totalTransportTxCount} times`;
+
+        document.getElementById('stat-net').textContent = `₹${netCashProfit.toLocaleString('en-IN')}`;
+    }
+
+    // Render Database Log Table rows dynamically
+    function renderLedgerTable(records) {
+        const tbody = document.getElementById('ledger-rows');
+        const activeFilter = document.getElementById('filter-type').value;
+        
+        tbody.innerHTML = '';
+
+        // Filter in memory cleanly
+        const filteredRecords = records.filter(item => {
+            if (activeFilter === "all") return true;
+            return item.entryType === activeFilter;
+        });
+
+        // Sort by date (Newest entries first)
+        filteredRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        if (filteredRecords.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="p-8 text-center text-brand-400 font-light">
+                        No transactions match the selected filter.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        filteredRecords.forEach(item => {
+            let badgeClass = "";
+            let badgeText = "";
+            let iconMarkup = "";
+            let detailsMarkup = "";
+            let amountMarkup = "";
+
+            if (item.entryType === "production") {
+                badgeClass = "bg-emerald-50 text-emerald-800 border-emerald-200";
+                badgeText = "Production";
+                iconMarkup = `<i class="fa-solid fa-socks text-emerald-700"></i>`;
+                detailsMarkup = `
+                    <div class="font-semibold text-brand-900">${item.sareeType}</div>
+                    <div class="text-[10px] text-brand-400">Qty: ${item.qty} pcs @ ₹${item.amount}/pc</div>
+                `;
+                amountMarkup = `<span class="text-emerald-700 font-bold">+₹${item.totalValue.toLocaleString('en-IN')}</span>`;
+            } 
+            else if (item.entryType === "labour") {
+                badgeClass = "bg-amber-50 text-amber-800 border-amber-200";
+                badgeText = "Labour Paid";
+                iconMarkup = `<i class="fa-solid fa-user-gear text-amber-700"></i>`;
+                detailsMarkup = `
+                    <div class="font-semibold text-brand-900">Paid to: ${item.workerName}</div>
+                    <div class="text-[10px] text-brand-400">Weaver wage payouts</div>
+                `;
+                amountMarkup = `<span class="text-amber-700 font-bold">-₹${item.amount.toLocaleString('en-IN')}</span>`;
+            } 
+            else if (item.entryType === "loan") {
+                const isRepaid = item.loanType === "repaid";
+                badgeClass = isRepaid ? "bg-indigo-50 text-indigo-800 border-indigo-200" : "bg-rose-50 text-rose-800 border-rose-200";
+                badgeText = isRepaid ? "Loan Paid Back" : "Loan Received";
+                iconMarkup = isRepaid ? `<i class="fa-solid fa-circle-arrow-down text-indigo-700"></i>` : `<i class="fa-solid fa-circle-arrow-up text-rose-700"></i>`;
+                detailsMarkup = `
+                    <div class="font-semibold text-brand-900">${isRepaid ? 'Paid off debt' : 'Loan Borrowed'}</div>
+                    <div class="text-[10px] text-brand-400">Financial Ledger entry</div>
+                `;
+                amountMarkup = `<span class="${isRepaid ? 'text-indigo-700' : 'text-rose-700'} font-bold">${isRepaid ? '-₹' : '+₹'}${item.amount.toLocaleString('en-IN')}</span>`;
+            } 
+            else if (item.entryType === "transport") {
+                const isOut = item.transportType === "outgoing";
+                badgeClass = "bg-purple-50 text-purple-800 border-purple-200";
+                badgeText = isOut ? "Saree Delivery" : "Yarn Material";
+                iconMarkup = `<i class="fa-solid fa-truck text-purple-700"></i>`;
+                detailsMarkup = `
+                    <div class="font-semibold text-brand-900">Transport: ${isOut ? 'Outgoing Shipment' : 'Incoming Raw Goods'}</div>
+                    <div class="text-[10px] text-brand-400">Logistics fuel/carriage charges</div>
+                `;
+                amountMarkup = `<span class="text-purple-700 font-bold">-₹${item.amount.toLocaleString('en-IN')}</span>`;
+            }
+
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-brand-50/50 transition-colors";
+            tr.innerHTML = `
+                <td class="p-3 font-semibold text-brand-800 font-mono text-[10px] sm:text-xs">${formatLocalDate(item.date)}</td>
+                <td class="p-3">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-semibold border ${badgeClass}">
+                        ${iconMarkup} ${badgeText}
+                    </span>
+                </td>
+                <td class="p-3">${detailsMarkup}</td>
+                <td class="p-3 font-semibold text-sm">${amountMarkup}</td>
+                <td class="p-3 text-brand-500 font-light max-w-[120px] truncate" title="${item.remarks}">${item.remarks || '-'}</td>
+                <td class="p-3 text-center">
+                    <button onclick="window.deleteRecord('${item.docId}')" class="text-brand-400 hover:text-red-600 p-2.5 focus:outline-none transition-all" title="Remove Record">
+                        <i class="fa-solid fa-trash-can text-sm"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function formatLocalDate(dateStr) {
+        if (!dateStr) return "";
+        try {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+        } catch (e) {
+            return dateStr;
+        }
+    }
+
+    // Trigger local memory query change
+    function filterLedgerData() {
+        renderLedgerTable(window.getGlobalRecords());
+    }
+
+    // Export Excel friendly CSV format
+    function exportToCSV() {
+        const records = window.getGlobalRecords();
+        if (records.length === 0) {
+            showAlert("No Data", "There are no transactions to export right now.", "fa-solid fa-triangle-exclamation");
+            return;
+        }
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Date,Entry Type,Details,Secondary Type,Value,Notes\r\n";
+
+        records.forEach(item => {
+            const rowDate = item.date;
+            const rowType = item.entryType;
+            let rowDetails = "";
+            let subType = "";
+            let rowVal = 0;
+
+            if (rowType === "production") {
+                rowDetails = `"${item.sareeType} x${item.qty}"`;
+                rowVal = item.totalValue;
+            } else if (rowType === "labour") {
+                rowDetails = `"${item.workerName}"`;
+                rowVal = item.amount;
+            } else if (rowType === "loan") {
+                rowDetails = "Loan Balance";
+                subType = item.loanType;
+                rowVal = item.amount;
+            } else if (rowType === "transport") {
+                rowDetails = "Carriage Fee";
+                subType = item.transportType;
+                rowVal = item.amount;
+            }
+
+            const cleanRemarks = item.remarks ? `"${item.remarks.replace(/"/g, '""')}"` : "";
+            csvContent += `${rowDate},${rowType},${rowDetails},${subType},${rowVal},${cleanRemarks}\r\n`;
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Loom_Weaver_Home_Ledger.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast("Excel compatible CSV file downloaded!");
+    }
+
+    // Modal Control systems
+    function toggleConfigModal() {
+        const modal = document.getElementById('config-modal');
+        modal.classList.toggle('hidden');
+    }
+
+    function saveCustomFirebaseConfig() {
+        const value = document.getElementById('firebase-config-input').value;
+        try {
+            const parsed = JSON.parse(value);
+            localStorage.setItem('handloom_ledger_config', JSON.stringify(parsed));
+            showToast("Credentials saved successfully! Reloading pages...", "fa-solid fa-arrows-rotate");
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        } catch (e) {
+            showAlert("Invalid Format", "Please provide a valid JSON credential text.", "fa-solid fa-triangle-exclamation");
+        }
+    }
+
+    function resetFirebaseConfig() {
+        localStorage.removeItem('handloom_ledger_config');
+        showToast("Reset to generic database defaults. Reloading page...", "fa-solid fa-arrows-rotate");
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    }
+
+    // Safe Non-alert popup replacements
+    function showAlert(title, message, iconClass = "fa-solid fa-circle-exclamation") {
+        document.getElementById('alert-title').textContent = title;
+        document.getElementById('alert-message').textContent = message;
+        document.getElementById('alert-icon').innerHTML = `<i class="${iconClass}"></i>`;
+        document.getElementById('alert-modal').classList.remove('hidden');
+    }
+
+    function closeAlertModal() {
+        document.getElementById('alert-modal').classList.add('hidden');
+    }
+
+    function showToast(message, iconClass = "fa-solid fa-circle-check") {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-message');
+        const toastIcon = document.getElementById('toast-icon');
+        
+        toastMsg.textContent = message;
+        toastIcon.className = `${iconClass} text-brand-500 text-sm`;
+        
+        toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        
+        setTimeout(() => {
+            toast.classList.remove('opacity-100', 'translate-y-0');
+            toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+        }, 3000);
+    }
+</script>
+</body>
+</html>
