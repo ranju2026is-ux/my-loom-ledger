@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter & Playfair for beautiful handloom texture feel -->
+    <!-- Google Fonts: Inter & Playfair -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -70,7 +70,7 @@
                 <span class="hidden sm:inline">Connecting...</span>
             </div>
             <button onclick="toggleConfigModal()" class="text-xs bg-brand-100 hover:bg-brand-500 hover:text-white text-brand-800 transition-all font-medium py-1.5 px-3 rounded-md flex items-center gap-1">
-                <i class="fa-solid fa-database"></i> <span class="hidden sm:inline">Database</span>
+                <i class="fa-solid fa-database"></i> <span class="hidden sm:inline">Database Settings</span>
             </button>
         </div>
     </div>
@@ -80,55 +80,55 @@
     
     <!-- Business Real-time Dashboard Summary -->
     <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
-        <!-- 1. Total Saree production value generated (₹540 per saree default) -->
+        <!-- 1. How many sarees happened in our textile -->
         <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div>
-                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Saree Earnings (Credit)</span>
-                <h3 id="stat-production" class="text-xl sm:text-2xl font-bold text-emerald-700 mt-1">₹0</h3>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Sarees Weaved (Our Textile)</span>
+                <h3 id="stat-qty" class="text-xl sm:text-2xl font-bold text-brand-800 mt-1">0 pcs</h3>
             </div>
             <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
-                <span>Total Weaved:</span>
-                <span id="stat-qty" class="font-bold text-brand-800">0 pcs</span>
+                <span>Value Credited:</span>
+                <span id="stat-production" class="font-bold text-emerald-700">₹0</span>
             </div>
         </div>
 
-        <!-- 2. Labour Wages Paid to auxiliary weavers -->
+        <!-- 2. Labour Wages Paid to auxiliary weavers (You write manually) -->
         <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div>
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Labour Wages Paid</span>
                 <h3 id="stat-labour" class="text-xl sm:text-2xl font-bold text-amber-700 mt-1">₹0</h3>
             </div>
             <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
-                <span>Transactions:</span>
-                <span id="stat-labour-count" class="font-bold text-brand-800">0 times</span>
+                <span>Payment Records:</span>
+                <span id="stat-labour-count" class="font-bold text-brand-800 font-mono">0 times</span>
             </div>
         </div>
 
-        <!-- 3. Outstanding Loans to deduct -->
+        <!-- 3. Outstanding Loans to deduct (You write manually) -->
         <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div>
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Outstanding Loan</span>
                 <h3 id="stat-loan" class="text-xl sm:text-2xl font-bold text-rose-700 mt-1">₹0</h3>
             </div>
             <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
-                <span>Total Repaid:</span>
+                <span>Paid Back:</span>
                 <span id="stat-loan-repaid" class="font-bold text-brand-800">₹0</span>
             </div>
         </div>
 
-        <!-- 4. Transport Expenses (Incoming & Outgoing) -->
+        <!-- 4. Transport Expenses (You write manually) -->
         <div class="bg-white p-4 rounded-xl border border-brand-100 shadow-sm relative overflow-hidden flex flex-col justify-between">
             <div>
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block">Transport Expense</span>
                 <h3 id="stat-transport" class="text-xl sm:text-2xl font-bold text-indigo-700 mt-1">₹0</h3>
             </div>
             <div class="flex justify-between items-center mt-3 pt-2 border-t border-brand-50 text-[10px] text-brand-400">
-                <span>Shipments:</span>
-                <span id="stat-transport-count" class="font-bold text-brand-800">0 times</span>
+                <span>Trips Recorded:</span>
+                <span id="stat-transport-count" class="font-bold text-brand-800 font-mono">0 times</span>
             </div>
         </div>
 
-        <!-- 5. Net Pending Savakar Balance (Calculation Dashboard) -->
+        <!-- 5. Net Pending Savakar Balance (The central calculation dashboard) -->
         <div class="col-span-2 lg:col-span-1 bg-brand-900 text-brand-100 p-4 rounded-xl shadow-md relative overflow-hidden flex flex-col justify-between">
             <div>
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-300 block">Due from Savakar</span>
@@ -147,24 +147,24 @@
         <div class="lg:col-span-4 bg-white border border-brand-100 rounded-xl shadow-sm p-4 sm:p-5 space-y-4">
             <div class="flex items-center gap-2 pb-3 border-b border-brand-100">
                 <i class="fa-solid fa-plus-circle text-brand-800 text-lg"></i>
-                <h2 class="font-bold text-sm tracking-wide text-brand-900 uppercase">Log Daily Ledger Entry</h2>
+                <h2 class="font-bold text-sm tracking-wide text-brand-900 uppercase">Log Daily Loom Entry</h2>
             </div>
 
             <!-- Selector Buttons for entry types -->
             <div>
-                <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-2">Select Entry Type</label>
+                <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-2">Select What Happened</label>
                 <div class="grid grid-cols-2 gap-2">
                     <button type="button" onclick="setFormType('production')" id="tab-production" class="form-tab py-2 px-3 border border-brand-800 bg-brand-800 text-white rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-socks"></i> Saree sent to Savakar
+                        <i class="fa-solid fa-socks"></i> Saree Sent (₹540)
                     </button>
                     <button type="button" onclick="setFormType('labour')" id="tab-labour" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-user-gear"></i> Labour Wages
+                        <i class="fa-solid fa-user-gear"></i> Labour/Weaver Paid
                     </button>
                     <button type="button" onclick="setFormType('loan')" id="tab-loan" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-hand-holding-dollar"></i> Loan Payment
+                        <i class="fa-solid fa-hand-holding-dollar"></i> Loan Transaction
                     </button>
                     <button type="button" onclick="setFormType('transport')" id="tab-transport" class="form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-truck"></i> Transport Cost
+                        <i class="fa-solid fa-truck"></i> Transport Charge
                     </button>
                 </div>
             </div>
@@ -181,51 +181,55 @@
                 <div id="fields-production" class="space-y-3">
                     <div>
                         <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Saree Fabric/Design Details</label>
-                        <input type="text" id="saree-type" placeholder="e.g. Traditional Ilkal Border Saree" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        <input type="text" id="saree-type" placeholder="e.g. Pure Silk Traditional Border" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Quantity (pcs)</label>
-                            <input type="number" min="1" id="saree-qty" placeholder="1" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">How many sarees? (pcs)</label>
+                            <input type="number" min="1" id="saree-qty" value="1" oninput="updateLiveSareeCalculation()" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500 font-bold text-brand-900">
                         </div>
                         <div>
                             <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Price per Saree (₹)</label>
-                            <input type="number" min="0" id="saree-price" value="540" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 font-bold text-emerald-800 focus:outline-none focus:border-brand-500">
+                            <input type="number" min="0" id="saree-price" value="540" oninput="updateLiveSareeCalculation()" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 font-bold text-emerald-800 focus:outline-none focus:border-brand-500">
                         </div>
                     </div>
-                    <p class="text-[10px] text-emerald-600 bg-emerald-50 p-2 rounded border border-emerald-100 font-medium">
-                        <i class="fa-solid fa-circle-info"></i> Pre-filled standard rate of <strong>₹540 per saree</strong> as requested.
-                    </p>
+                    <!-- Auto-calculation box to show "directly set amount" -->
+                    <div class="p-2.5 bg-emerald-50 rounded-lg border border-emerald-100">
+                        <p class="text-[10px] text-emerald-800 font-medium flex items-center justify-between">
+                            <span><i class="fa-solid fa-calculator mr-1"></i> Auto-calculated Value:</span>
+                            <span id="live-saree-calc-text" class="font-bold text-xs">₹540</span>
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Fields for Labour -->
+                <!-- Fields for Labour (Own to write) -->
                 <div id="fields-labour" class="space-y-3 hidden">
                     <div>
                         <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Labour/Weaver Name</label>
                         <input type="text" id="labour-name" placeholder="e.g. Ramesh" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
                     </div>
                     <div>
-                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Wages Paid (₹)</label>
-                        <input type="number" min="0" id="labour-amount" placeholder="e.g. 1500" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Wages/Labour Amount Paid (₹)</label>
+                        <input type="number" min="0" id="labour-amount" placeholder="Write exact labor amount paid..." class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500 font-bold text-amber-800">
                     </div>
                 </div>
 
-                <!-- Fields for Loan -->
+                <!-- Fields for Loan (Own to write) -->
                 <div id="fields-loan" class="space-y-3 hidden">
                     <div>
                         <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Loan Action</label>
                         <select id="loan-subtype" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
-                            <option value="taken">Loan Received (Debt Inflow)</option>
-                            <option value="repaid">Loan Paid Back (Payoff Outflow)</option>
+                            <option value="taken">Loan Received (We Borrowed)</option>
+                            <option value="repaid">Loan Paid Back (We Paid Off)</option>
                         </select>
                     </div>
                     <div>
-                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Loan Amount (₹)</label>
-                        <input type="number" min="0" id="loan-amount" placeholder="e.g. 10000" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Loan Transaction Amount (₹)</label>
+                        <input type="number" min="0" id="loan-amount" placeholder="Write exact loan amount..." class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500 font-bold text-rose-800">
                     </div>
                 </div>
 
-                <!-- Fields for Transport -->
+                <!-- Fields for Transport (Own to write) -->
                 <div id="fields-transport" class="space-y-3 hidden">
                     <div>
                         <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Transport Category</label>
@@ -235,15 +239,15 @@
                         </select>
                     </div>
                     <div>
-                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Transport Cost (₹)</label>
-                        <input type="number" min="0" id="transport-amount" placeholder="e.g. 350" class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Transport Fare Amount (₹)</label>
+                        <input type="number" min="0" id="transport-amount" placeholder="Write exact transport amount..." class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500 font-bold text-indigo-800">
                     </div>
                 </div>
 
                 <!-- Notes / Remarks field -->
                 <div>
                     <label class="text-[10px] font-bold uppercase tracking-wider text-brand-500 block mb-1">Remarks / Note</label>
-                    <textarea id="input-notes" rows="2" placeholder="e.g. Bill No / Challan detail..." class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500"></textarea>
+                    <textarea id="input-notes" rows="2" placeholder="Write bill number, bundle details..." class="w-full border border-brand-100 rounded-lg p-2 text-sm bg-brand-50/50 focus:outline-none focus:border-brand-500"></textarea>
                 </div>
 
                 <!-- Action Button -->
@@ -266,7 +270,7 @@
                     </button>
                 </div>
 
-                <!-- TAB PAGE 1: Savakar Settlement Sheet (Requested Calculation Dashboard) -->
+                <!-- TAB PAGE 1: Savakar Settlement Sheet -->
                 <div id="view-settlement-view" class="space-y-5">
                     <div class="p-4 bg-amber-50/50 rounded-xl border border-brand-100 space-y-4">
                         <div class="flex items-center justify-between">
@@ -279,24 +283,24 @@
                         <!-- Mathematical Ledger Model Step-by-Step Display -->
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                             <div class="bg-white p-3 rounded-lg border border-brand-100 shadow-sm">
-                                <span class="text-[9px] uppercase font-bold text-emerald-600 tracking-wider">Saree Credit</span>
+                                <span class="text-[9px] uppercase font-bold text-emerald-600 tracking-wider">Saree Credit (+)</span>
                                 <h4 id="calc-saree-val" class="text-base font-bold text-emerald-800 mt-1">₹0</h4>
-                                <p class="text-[9px] text-brand-400">Total saree value weaved</p>
+                                <p class="text-[9px] text-brand-400 font-medium" id="calc-saree-qty">Total: 0 sarees</p>
                             </div>
                             <div class="bg-white p-3 rounded-lg border border-brand-100 shadow-sm">
-                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Labour</span>
+                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Labour (-)</span>
                                 <h4 id="calc-labour" class="text-base font-bold text-rose-700 mt-1">-₹0</h4>
-                                <p class="text-[9px] text-brand-400">Wages deducted from balance</p>
+                                <p class="text-[9px] text-brand-400">Helper wages deducted</p>
                             </div>
                             <div class="bg-white p-3 rounded-lg border border-brand-100 shadow-sm">
-                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Loans</span>
+                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Loans (-)</span>
                                 <h4 id="calc-loan" class="text-base font-bold text-rose-700 mt-1">-₹0</h4>
-                                <p class="text-[9px] text-brand-400">Repayment deduction</p>
+                                <p class="text-[9px] text-brand-400">Remaining loan balance</p>
                             </div>
                             <div class="bg-white p-3 rounded-lg border border-brand-100 shadow-sm">
-                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Transport</span>
+                                <span class="text-[9px] uppercase font-bold text-rose-500 tracking-wider">Minus Transport (-)</span>
                                 <h4 id="calc-transport" class="text-base font-bold text-rose-700 mt-1">-₹0</h4>
-                                <p class="text-[9px] text-brand-400">Fares & went freight cost</p>
+                                <p class="text-[9px] text-brand-400 font-mono">Fares / freight spent</p>
                             </div>
                         </div>
 
@@ -305,7 +309,7 @@
                             <div>
                                 <h4 class="font-bold text-sm text-brand-900 uppercase">Settlement Outstanding</h4>
                                 <p class="text-[11px] text-brand-500 font-light mt-0.5">
-                                    Formula: [Total Sarees] - [Labour paid] - [Loans Outstanding] - [Transport]
+                                    Calculation: [Total Sarees @ ₹540] - [Labour paid] - [Loans Outstanding] - [Transport]
                                 </p>
                             </div>
                             <div class="text-right">
@@ -319,12 +323,12 @@
                     <div class="p-3.5 bg-brand-50 border border-brand-100 rounded-xl flex items-start gap-3">
                         <i class="fa-solid fa-circle-info text-brand-500 text-sm mt-0.5 shrink-0"></i>
                         <div class="text-[11px] text-brand-600 leading-relaxed">
-                            <strong>Note on Savakar Account:</strong> Under your loom model, when sarees are delivered, the value (quantity × ₹540) is logged as receivable balance. The helper weavers' labour costs, active repayments/loans, and any transport expenses are deducted from this pool. This sheet calculates the net balance you can ask from Savakar <strong>Shashidar Challapalli</strong>.
+                            <strong>Loom Accountant Note:</strong> On your home handloom machine, when you send sarees to Savakar <strong>Shashidar Challapalli</strong>, the amount is added as credit. When you pay weavers (Labour), pay off loans, or cover transport costs, those amounts are automatically deducted here. The remaining balance at the bottom is exactly what the Savakar owes you.
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB PAGE 2: All Transaction Logs (Original database view) -->
+                <!-- TAB PAGE 2: All Transaction Logs -->
                 <div id="view-logs-view" class="space-y-4 hidden">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <h3 class="font-bold text-xs tracking-wide text-brand-800 uppercase flex items-center gap-1.5">
@@ -359,7 +363,6 @@
                                 </tr>
                             </thead>
                             <tbody id="ledger-rows" class="divide-y divide-brand-100">
-                                <!-- Injected dynamically via script -->
                                 <tr>
                                     <td colspan="6" class="p-12 text-center text-brand-400">
                                         <i class="fa-solid fa-rotate animate-spin text-2xl mb-3 block"></i>
@@ -381,670 +384,10 @@
     </section>
 </main>
 
-<!-- Custom Firebase configuration screen (so they can make it their own free cloud DB) -->
+<!-- Custom Firebase configuration screen -->
 <div id="config-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-900/60 backdrop-blur-md hidden transition-all duration-300">
     <div class="bg-white max-w-lg w-full p-6 border border-brand-200 shadow-2xl relative rounded-xl">
         <button onclick="toggleConfigModal()" class="absolute top-4 right-4 text-brand-400 hover:text-brand-900"><i class="fa-solid fa-xmark text-lg"></i></button>
         <div class="flex items-center gap-2 mb-4">
             <i class="fa-solid fa-database text-brand-500 text-xl"></i>
-            <h3 class="font-serif text-lg tracking-wider uppercase font-semibold text-brand-900">Database Setup</h3>
-        </div>
-        <p class="text-xs text-brand-600 leading-relaxed mb-4">
-            Currently running on demo data mode. Paste your free Google Firebase Credentials below to save your data permanently on Google Cloud:
-        </p>
-        <div class="space-y-3">
-            <div>
-                <label class="text-[10px] uppercase font-bold text-brand-600 tracking-wider block mb-1">Firebase Config JSON</label>
-                <textarea id="firebase-config-input" rows="7" class="w-full border border-brand-100 p-2 font-mono text-[10px] bg-brand-50 focus:outline-none focus:border-brand-500 rounded-lg" placeholder='{
-  "apiKey": "AIzaSy...",
-  "authDomain": "...firebaseapp.com",
-  "projectId": "...",
-  "storageBucket": "...",
-  "messagingSenderId": "...",
-  "appId": "..."
-}'></textarea>
-            </div>
-            <button onclick="saveCustomFirebaseConfig()" class="w-full py-3 bg-brand-800 hover:bg-brand-500 text-white font-semibold uppercase text-xs tracking-widest transition-colors rounded-lg">
-                Apply My Personal Database
-            </button>
-            <button onclick="resetFirebaseConfig()" class="w-full py-1.5 text-brand-400 hover:text-red-500 text-[10px] uppercase tracking-widest font-semibold transition-colors">
-                Reset to Global Demo Database
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Simple Custom Alert System (Replacing alert() to avoid iframe crashes) -->
-<div id="alert-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-900/60 backdrop-blur-sm hidden">
-    <div class="bg-white max-w-sm w-full p-6 rounded-xl border border-brand-100 shadow-xl text-center space-y-4">
-        <div id="alert-icon" class="w-12 h-12 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center text-xl mx-auto">
-            <i class="fa-solid fa-circle-exclamation"></i>
-        </div>
-        <h4 id="alert-title" class="font-bold text-sm tracking-wide text-brand-900 uppercase">Attention Required</h4>
-        <p id="alert-message" class="text-xs text-brand-600 leading-relaxed font-light"></p>
-        <button onclick="closeAlertModal()" class="w-full bg-brand-800 hover:bg-brand-500 text-white font-semibold py-2.5 rounded-lg text-xs uppercase tracking-wider transition-colors">
-            Understood
-        </button>
-    </div>
-</div>
-
-<!-- Floating Toast Alerts -->
-<div id="toast" class="fixed bottom-6 right-6 z-50 bg-brand-900 text-brand-50 px-5 py-3 shadow-xl border border-brand-800 rounded-lg flex items-center gap-3 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none">
-    <i class="fa-solid fa-circle-check text-brand-500" id="toast-icon"></i>
-    <span id="toast-message" class="text-xs uppercase tracking-wider font-semibold">Message Sent</span>
-</div>
-
-<!-- Footer details -->
-<footer class="bg-white border-t border-brand-100 py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-xs text-brand-400">
-        <p>&copy; Swarnam Loom Ledger. Customized for Savakar Shashidar Challapalli Accounts.</p>
-        <p class="mt-2 md:mt-0 font-mono text-[10px]">Session Status: <span id="node-identifier" class="text-brand-700">Connecting...</span></p>
-    </div>
-</footer>
-
-<!-- Firestore Real-time Engine Module -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    // Application state values
-    let app, db, auth;
-    let globalLedgerRecords = [];
-
-    // Fallback Mock Demo database config
-    const demoFirebaseConfig = {
-        apiKey: "AIzaSyAs-demo-key-123456789",
-        authDomain: "swarnam-weaver-ledger.firebaseapp.com",
-        projectId: "swarnam-weaver-ledger",
-        storageBucket: "swarnam-weaver-ledger.appspot.com",
-        messagingSenderId: "1234567890",
-        appId: "1:1234567890:web:abcdef123456"
-    };
-
-    // Pull configuration details
-    window.getSavedFirebaseConfig = function() {
-        const local = localStorage.getItem('handloom_ledger_config');
-        if (local) {
-            try {
-                return JSON.parse(local);
-            } catch (e) {
-                return null;
-            }
-        }
-        return null;
-    }
-
-    // Set configuration inputs
-    const inputArea = document.getElementById('firebase-config-input');
-    const saved = getSavedFirebaseConfig();
-    if (saved) {
-        inputArea.value = JSON.stringify(saved, null, 2);
-    }
-
-    // Setup date picker to today automatically
-    document.getElementById('input-date').valueAsDate = new Date();
-
-    async function initializeLedgerDatabase() {
-        const config = getSavedFirebaseConfig() || (typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : demoFirebaseConfig);
-        
-        try {
-            app = initializeApp(config);
-            db = getFirestore(app);
-            auth = getAuth(app);
-
-            // Authentication Setup before queries (RULE 3)
-            let user;
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                user = await signInWithCustomToken(auth, __initial_auth_token).catch(() => signInAnonymously(auth));
-            } else {
-                user = await signInAnonymously(auth);
-            }
-
-            const uid = auth.currentUser?.uid || crypto.randomUUID();
-            
-            // Adjust visual network connections
-            document.getElementById('connection-status').className = "flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase";
-            document.getElementById('connection-status').innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span>Real-Time Online</span>`;
-            document.getElementById('node-identifier').textContent = uid;
-
-            setupLedgerListener();
-
-        } catch (e) {
-            console.warn("Could not connect to Firestore network, running locally.", e);
-            document.getElementById('connection-status').className = "flex items-center gap-1.5 bg-rose-50 text-rose-800 border border-rose-200 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase";
-            document.getElementById('connection-status').innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span><span>Local Offline Mode</span>`;
-            document.getElementById('node-identifier').textContent = "LocalStore_Active";
-            loadLocalBackupData();
-        }
-    }
-
-    // Setup Realtime Database Stream
-    function setupLedgerListener() {
-        if (!auth.currentUser) return;
-
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'home-handloom-accounting';
-        
-        // RULE 1: Strict database structure hierarchy
-        const collRef = collection(db, 'artifacts', appId, 'public', 'data', 'ledger_records');
-
-        // RULE 2: Keep simple queries, do memory operations to prevent compound index errors
-        onSnapshot(collRef, (snapshot) => {
-            const temp = [];
-            snapshot.forEach(docSnap => {
-                temp.push({ docId: docSnap.id, ...docSnap.data() });
-            });
-            globalLedgerRecords = temp;
-            renderLedgerTable(temp);
-            recalculateDashboardTotals(temp);
-        }, (error) => {
-            console.error("Firestore live read error: ", error);
-            loadLocalBackupData();
-        });
-    }
-
-    // Offline LocalStorage Backup in case Firestore setup isn't complete yet
-    function loadLocalBackupData() {
-        const localData = localStorage.getItem('local_ledger_records');
-        if (localData) {
-            try {
-                globalLedgerRecords = JSON.parse(localData);
-            } catch (e) {
-                globalLedgerRecords = [];
-            }
-        } else {
-            // Initial mock data customized to the user's workflow
-            globalLedgerRecords = [
-                { docId: "m1", entryType: "production", date: "2026-06-18", sareeType: "Pure Silk Ilkal Saree", qty: 10, amount: 540, totalValue: 5400, remarks: "Sent to Shashidar Challapalli" },
-                { docId: "m2", entryType: "labour", date: "2026-06-19", workerName: "Ramesh weaver", amount: 1500, remarks: "Weft weaved wages" },
-                { docId: "m3", entryType: "loan", date: "2026-06-15", loanType: "taken", amount: 2000, remarks: "Material advance" },
-                { docId: "m4", entryType: "transport", date: "2026-06-16", transportType: "incoming", amount: 450, remarks: "Yarn transport went cost" }
-            ];
-            localStorage.setItem('local_ledger_records', JSON.stringify(globalLedgerRecords));
-        }
-        renderLedgerTable(globalLedgerRecords);
-        recalculateDashboardTotals(globalLedgerRecords);
-    }
-
-    // Save New entry into Firestore (or Local fallback)
-    window.addLedgerEntry = async function(entryObj) {
-        if (db && auth?.currentUser) {
-            try {
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'home-handloom-accounting';
-                const collRef = collection(db, 'artifacts', appId, 'public', 'data', 'ledger_records');
-                
-                await addDoc(collRef, entryObj);
-                showToast("Entry added securely to Firestore!", "fa-solid fa-cloud");
-            } catch (e) {
-                console.error("Could not write record: ", e);
-                saveOfflineFallback(entryObj);
-            }
-        } else {
-            saveOfflineFallback(entryObj);
-        }
-    }
-
-    function saveOfflineFallback(entryObj) {
-        entryObj.docId = "local-" + Date.now();
-        globalLedgerRecords.push(entryObj);
-        localStorage.setItem('local_ledger_records', JSON.stringify(globalLedgerRecords));
-        showToast("Entry saved to local device browser!", "fa-solid fa-file-shield");
-        renderLedgerTable(globalLedgerRecords);
-        recalculateDashboardTotals(globalLedgerRecords);
-    }
-
-    // Delete record from Database
-    window.deleteRecord = async function(docId) {
-        if (db && auth?.currentUser && !docId.startsWith('local-') && docId !== "m1" && docId !== "m2" && docId !== "m3" && docId !== "m4") {
-            try {
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'home-handloom-accounting';
-                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'ledger_records', docId);
-                await deleteDoc(docRef);
-                showToast("Entry deleted successfully!", "fa-solid fa-trash-can");
-            } catch (e) {
-                console.error("Failed to delete database record: ", e);
-                deleteOfflineFallback(docId);
-            }
-        } else {
-            deleteOfflineFallback(docId);
-        }
-    }
-
-    function deleteOfflineFallback(docId) {
-        globalLedgerRecords = globalLedgerRecords.filter(item => item.docId !== docId);
-        localStorage.setItem('local_ledger_records', JSON.stringify(globalLedgerRecords));
-        showToast("Record deleted locally.", "fa-solid fa-trash");
-        renderLedgerTable(globalLedgerRecords);
-        recalculateDashboardTotals(globalLedgerRecords);
-    }
-
-    // Connect to Firestore setup
-    initializeLedgerDatabase();
-
-    // Export public handle to allow filter functions
-    window.getGlobalRecords = function() {
-        return globalLedgerRecords;
-    }
-</script>
-
-<!-- Local UI operations script -->
-<script>
-    let activeFormType = "production";
-
-    function setFormType(type) {
-        activeFormType = type;
-        
-        // Highlight chosen tab
-        document.querySelectorAll('.form-tab').forEach(tab => {
-            tab.className = "form-tab py-2 px-3 border border-brand-100 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all";
-        });
-        
-        const activeTab = document.getElementById(`tab-${type}`);
-        activeTab.className = "form-tab py-2 px-3 border border-brand-800 bg-brand-800 text-white rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all";
-
-        // Toggle visibility of fields
-        document.getElementById('fields-production').classList.add('hidden');
-        document.getElementById('fields-labour').classList.add('hidden');
-        document.getElementById('fields-loan').classList.add('hidden');
-        document.getElementById('fields-transport').classList.add('hidden');
-
-        document.getElementById(`fields-${type}`).classList.remove('hidden');
-    }
-
-    // Switch between settlement summary sheet and detailed records log
-    function switchView(viewId) {
-        document.getElementById('view-settlement-view').classList.add('hidden');
-        document.getElementById('view-logs-view').classList.add('hidden');
-        
-        document.getElementById(`view-${viewId}`).classList.remove('hidden');
-
-        // Toggle active design styles on tabs
-        document.getElementById('view-tab-settlement').className = "pb-3 text-xs uppercase font-bold tracking-wider border-b-2 text-brand-400 border-transparent focus:outline-none hover:text-brand-900 transition-all";
-        document.getElementById('view-tab-logs').className = "pb-3 text-xs uppercase font-bold tracking-wider border-b-2 text-brand-400 border-transparent focus:outline-none hover:text-brand-900 transition-all";
-
-        if (viewId === "settlement-view") {
-            document.getElementById('view-tab-settlement').className = "pb-3 text-xs uppercase font-bold tracking-wider border-b-2 border-brand-800 text-brand-900 flex items-center gap-1.5 focus:outline-none transition-all";
-        } else {
-            document.getElementById('view-tab-logs').className = "pb-3 text-xs uppercase font-bold tracking-wider border-b-2 border-brand-800 text-brand-900 flex items-center gap-1.5 focus:outline-none transition-all";
-        }
-    }
-
-    // Handling saving form input
-    function handleFormSubmit(e) {
-        e.preventDefault();
-
-        const date = document.getElementById('input-date').value;
-        const remarks = document.getElementById('input-notes').value || "";
-
-        if (!date) {
-            showAlert("Error", "Please pick a valid calendar date.", "fa-solid fa-calendar-times");
-            return;
-        }
-
-        let entryObj = {
-            entryType: activeFormType,
-            date: date,
-            remarks: remarks
-        };
-
-        // Capture fields depending on option
-        if (activeFormType === "production") {
-            const sareeType = document.getElementById('saree-type').value || "Pure Silk Saree";
-            const qty = parseInt(document.getElementById('saree-qty').value) || 1;
-            const price = parseFloat(document.getElementById('saree-price').value) || 540; // Default ₹540
-            const totalValue = qty * price;
-
-            entryObj.sareeType = sareeType;
-            entryObj.qty = qty;
-            entryObj.amount = price;
-            entryObj.totalValue = totalValue;
-
-        } else if (activeFormType === "labour") {
-            const labourName = document.getElementById('labour-name').value || "Helper Weaver";
-            const amount = parseFloat(document.getElementById('labour-amount').value) || 0;
-
-            if (amount <= 0) {
-                showAlert("Wages Empty", "Wages/amount cannot be blank or zero.", "fa-solid fa-coins");
-                return;
-            }
-
-            entryObj.workerName = labourName;
-            entryObj.amount = amount;
-
-        } else if (activeFormType === "loan") {
-            const loanType = document.getElementById('loan-subtype').value; // 'taken' or 'repaid'
-            const amount = parseFloat(document.getElementById('loan-amount').value) || 0;
-
-            if (amount <= 0) {
-                showAlert("Amount Missing", "Please input a valid amount of loan.", "fa-solid fa-circle-exclamation");
-                return;
-            }
-
-            entryObj.loanType = loanType;
-            entryObj.amount = amount;
-
-        } else if (activeFormType === "transport") {
-            const direction = document.getElementById('transport-direction').value; // 'incoming' or 'outgoing'
-            const amount = parseFloat(document.getElementById('transport-amount').value) || 0;
-
-            if (amount <= 0) {
-                showAlert("Expense Blank", "Please provide the exact transport expense charge.", "fa-solid fa-truck");
-                return;
-            }
-
-            entryObj.transportType = direction;
-            entryObj.amount = amount;
-        }
-
-        // Add to database
-        window.addLedgerEntry(entryObj);
-
-        // Reset inputs cleanly
-        document.getElementById('saree-type').value = "";
-        document.getElementById('saree-qty').value = "";
-        document.getElementById('saree-price').value = "540"; // Keep ₹540 default
-        document.getElementById('labour-name').value = "";
-        document.getElementById('labour-amount').value = "";
-        document.getElementById('loan-amount').value = "";
-        document.getElementById('transport-amount').value = "";
-        document.getElementById('input-notes').value = "";
-    }
-
-    // Dynamic Calculations of Handloom Ledger totals
-    function recalculateDashboardTotals(records) {
-        let totalProductionValue = 0;
-        let totalSareeQuantity = 0;
-        let totalLabourPaid = 0;
-        let totalLabourTxCount = 0;
-        let totalLoanTaken = 0;
-        let totalLoanRepaid = 0;
-        let totalTransportCost = 0;
-        let totalTransportTxCount = 0;
-
-        records.forEach(item => {
-            if (item.entryType === "production") {
-                totalProductionValue += parseFloat(item.totalValue || 0);
-                totalSareeQuantity += parseInt(item.qty || 0);
-            } else if (item.entryType === "labour") {
-                totalLabourPaid += parseFloat(item.amount || 0);
-                totalLabourTxCount++;
-            } else if (item.entryType === "loan") {
-                if (item.loanType === "taken") {
-                    totalLoanTaken += parseFloat(item.amount || 0);
-                } else if (item.loanType === "repaid") {
-                    totalLoanRepaid += parseFloat(item.amount || 0);
-                }
-            } else if (item.entryType === "transport") {
-                totalTransportCost += parseFloat(item.amount || 0);
-                totalTransportTxCount++;
-            }
-        });
-
-        // Compute balances
-        const outstandingLoan = totalLoanTaken - totalLoanRepaid;
-        
-        // Dynamic settlement logic requested:
-        // Net Pending Savakar Balance = Total Saree Production - Labour Wages - Outstanding Loan - Transport Cost
-        const netCashSettlement = totalProductionValue - totalLabourPaid - outstandingLoan - totalTransportCost;
-
-        // Render counters to HTML Top Header Dashboard
-        document.getElementById('stat-production').textContent = `₹${totalProductionValue.toLocaleString('en-IN')}`;
-        document.getElementById('stat-qty').textContent = `${totalSareeQuantity} pcs`;
-
-        document.getElementById('stat-labour').textContent = `₹${totalLabourPaid.toLocaleString('en-IN')}`;
-        document.getElementById('stat-labour-count').textContent = `${totalLabourTxCount} times`;
-
-        document.getElementById('stat-loan').textContent = `₹${outstandingLoan.toLocaleString('en-IN')}`;
-        document.getElementById('stat-loan-repaid').textContent = `₹${totalLoanRepaid.toLocaleString('en-IN')}`;
-
-        document.getElementById('stat-transport').textContent = `₹${totalTransportCost.toLocaleString('en-IN')}`;
-        document.getElementById('stat-transport-count').textContent = `${totalTransportTxCount} times`;
-
-        document.getElementById('stat-net').textContent = `₹${netCashSettlement.toLocaleString('en-IN')}`;
-
-        // Render values to Page 1: Savakar Net Deduction Sheet
-        document.getElementById('calc-saree-val').textContent = `₹${totalProductionValue.toLocaleString('en-IN')}`;
-        document.getElementById('calc-labour').textContent = `-₹${totalLabourPaid.toLocaleString('en-IN')}`;
-        document.getElementById('calc-loan').textContent = `-₹${outstandingLoan.toLocaleString('en-IN')}`;
-        document.getElementById('calc-transport').textContent = `-₹${totalTransportCost.toLocaleString('en-IN')}`;
-        
-        // Final due highlighting
-        const finalDueElem = document.getElementById('calc-final-due');
-        finalDueElem.textContent = `₹${netCashSettlement.toLocaleString('en-IN')}`;
-        if (netCashSettlement < 0) {
-            finalDueElem.className = "text-xl sm:text-2xl font-black text-rose-600";
-        } else {
-            finalDueElem.className = "text-xl sm:text-2xl font-black text-emerald-700";
-        }
-    }
-
-    // Render Database Log Table rows dynamically
-    function renderLedgerTable(records) {
-        const tbody = document.getElementById('ledger-rows');
-        const activeFilter = document.getElementById('filter-type').value;
-        
-        tbody.innerHTML = '';
-
-        // Filter in memory cleanly
-        const filteredRecords = records.filter(item => {
-            if (activeFilter === "all") return true;
-            return item.entryType === activeFilter;
-        });
-
-        // Sort by date (Newest entries first)
-        filteredRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        if (filteredRecords.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="6" class="p-8 text-center text-brand-400 font-light">
-                        No transactions logged yet.
-                    </td>
-                </tr>
-            `;
-            return;
-        }
-
-        filteredRecords.forEach(item => {
-            let badgeClass = "";
-            let badgeText = "";
-            let iconMarkup = "";
-            let detailsMarkup = "";
-            let amountMarkup = "";
-
-            if (item.entryType === "production") {
-                badgeClass = "bg-emerald-50 text-emerald-800 border-emerald-200";
-                badgeText = "Saree Sent";
-                iconMarkup = `<i class="fa-solid fa-socks text-emerald-700"></i>`;
-                detailsMarkup = `
-                    <div class="font-semibold text-brand-900">${item.sareeType}</div>
-                    <div class="text-[10px] text-brand-400">Qty: ${item.qty} pcs @ ₹${item.amount}/pc</div>
-                `;
-                amountMarkup = `<span class="text-emerald-700 font-bold">+₹${item.totalValue.toLocaleString('en-IN')}</span>`;
-            } 
-            else if (item.entryType === "labour") {
-                badgeClass = "bg-amber-50 text-amber-800 border-amber-200";
-                badgeText = "Labour Paid";
-                iconMarkup = `<i class="fa-solid fa-user-gear text-amber-700"></i>`;
-                detailsMarkup = `
-                    <div class="font-semibold text-brand-900">Paid to: ${item.workerName}</div>
-                    <div class="text-[10px] text-brand-400">Wages deducted from Savakar ledger</div>
-                `;
-                amountMarkup = `<span class="text-amber-700 font-bold">-₹${item.amount.toLocaleString('en-IN')}</span>`;
-            } 
-            else if (item.entryType === "loan") {
-                const isRepaid = item.loanType === "repaid";
-                badgeClass = isRepaid ? "bg-indigo-50 text-indigo-800 border-indigo-200" : "bg-rose-50 text-rose-800 border-rose-200";
-                badgeText = isRepaid ? "Loan Paid Back" : "Loan Borrowed";
-                iconMarkup = isRepaid ? `<i class="fa-solid fa-circle-arrow-down text-indigo-700"></i>` : `<i class="fa-solid fa-circle-arrow-up text-rose-700"></i>`;
-                detailsMarkup = `
-                    <div class="font-semibold text-brand-900">${isRepaid ? 'Paid off debt' : 'Loan Borrowed'}</div>
-                    <div class="text-[10px] text-brand-400">Adjusted against Savakar pool</div>
-                `;
-                amountMarkup = `<span class="${isRepaid ? 'text-indigo-700' : 'text-rose-700'} font-bold">${isRepaid ? '-₹' : '+₹'}${item.amount.toLocaleString('en-IN')}</span>`;
-            } 
-            else if (item.entryType === "transport") {
-                const isOut = item.transportType === "outgoing";
-                badgeClass = "bg-purple-50 text-purple-800 border-purple-200";
-                badgeText = isOut ? "Sarees Delivered" : "Yarn Went In";
-                iconMarkup = `<i class="fa-solid fa-truck text-purple-700"></i>`;
-                detailsMarkup = `
-                    <div class="font-semibold text-brand-900">Transport: ${isOut ? 'Sarees Sent Out' : 'Raw Materials Coming In'}</div>
-                    <div class="text-[10px] text-brand-400">Freight carriage fee</div>
-                `;
-                amountMarkup = `<span class="text-purple-700 font-bold">-₹${item.amount.toLocaleString('en-IN')}</span>`;
-            }
-
-            const tr = document.createElement('tr');
-            tr.className = "hover:bg-brand-50/50 transition-colors";
-            tr.innerHTML = `
-                <td class="p-3 font-semibold text-brand-800 font-mono text-[10px] sm:text-xs">${formatLocalDate(item.date)}</td>
-                <td class="p-3">
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-semibold border ${badgeClass}">
-                        ${iconMarkup} ${badgeText}
-                    </span>
-                </td>
-                <td class="p-3">${detailsMarkup}</td>
-                <td class="p-3 font-semibold text-sm">${amountMarkup}</td>
-                <td class="p-3 text-brand-500 font-light max-w-[120px] truncate" title="${item.remarks}">${item.remarks || '-'}</td>
-                <td class="p-3 text-center">
-                    <button onclick="window.deleteRecord('${item.docId}')" class="text-brand-400 hover:text-red-600 p-2.5 focus:outline-none transition-all" title="Remove Record">
-                        <i class="fa-solid fa-trash-can text-sm"></i>
-                    </button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    function formatLocalDate(dateStr) {
-        if (!dateStr) return "";
-        try {
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-        } catch (e) {
-            return dateStr;
-        }
-    }
-
-    function filterLedgerData() {
-        renderLedgerTable(window.getGlobalRecords());
-    }
-
-    // Export Excel friendly CSV format
-    function exportToCSV() {
-        const records = window.getGlobalRecords();
-        if (records.length === 0) {
-            showAlert("No Data", "There are no transactions to export right now.", "fa-solid fa-triangle-exclamation");
-            return;
-        }
-
-        let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += "Date,Type,Details,Value,Notes\r\n";
-
-        records.forEach(item => {
-            const rowDate = item.date;
-            const rowType = item.entryType;
-            let rowDetails = "";
-            let rowVal = 0;
-
-            if (rowType === "production") {
-                rowDetails = `"${item.sareeType} x${item.qty}"`;
-                rowVal = item.totalValue;
-            } else if (rowType === "labour") {
-                rowDetails = `"${item.workerName}"`;
-                rowVal = item.amount;
-            } else if (rowType === "loan") {
-                rowDetails = `"${item.loanType === 'repaid' ? 'Loan Paid' : 'Loan Taken'}"`;
-                rowVal = item.amount;
-            } else if (rowType === "transport") {
-                rowDetails = `"${item.transportType === 'outgoing' ? 'Saree Delivery' : 'Yarn Carriage'}"`;
-                rowVal = item.amount;
-            }
-
-            const cleanRemarks = item.remarks ? `"${item.remarks.replace(/"/g, '""')}"` : "";
-            csvContent += `${rowDate},${rowType},${rowDetails},${rowVal},${cleanRemarks}\r\n`;
-        });
-
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "Shashidar_Challapalli_Savakar_Ledger.csv");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        showToast("Excel CSV file downloaded!");
-    }
-
-    // Modal Control systems
-    function toggleConfigModal() {
-        const modal = document.getElementById('config-modal');
-        modal.classList.toggle('hidden');
-    }
-
-    function saveCustomFirebaseConfig() {
-        const value = document.getElementById('firebase-config-input').value;
-        try {
-            const parsed = JSON.parse(value);
-            localStorage.setItem('handloom_ledger_config', JSON.stringify(parsed));
-            showToast("Credentials saved! Page reloading...", "fa-solid fa-arrows-rotate");
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
-        } catch (e) {
-            showAlert("Invalid Format", "Please provide a valid JSON credential text.", "fa-solid fa-triangle-exclamation");
-        }
-    }
-
-    function resetFirebaseConfig() {
-        localStorage.removeItem('handloom_ledger_config');
-        showToast("Reset to defaults! Page reloading...", "fa-solid fa-arrows-rotate");
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
-    }
-
-    // Custom alerts instead of alert()
-    function showAlert(title, message, iconClass = "fa-solid fa-circle-exclamation") {
-        document.getElementById('alert-title').textContent = title;
-        document.getElementById('alert-message').textContent = message;
-        document.getElementById('alert-icon').innerHTML = `<i class="${iconClass}"></i>`;
-        document.getElementById('alert-modal').classList.remove('hidden');
-    }
-
-    function closeAlertModal() {
-        document.getElementById('alert-modal').classList.add('hidden');
-    }
-
-    function showToast(message, iconClass = "fa-solid fa-circle-check") {
-        const toast = document.getElementById('toast');
-        const toastMsg = document.getElementById('toast-message');
-        const toastIcon = document.getElementById('toast-icon');
-        
-        toastMsg.textContent = message;
-        toastIcon.className = `${iconClass} text-brand-500 text-sm`;
-        
-        toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-        toast.classList.add('opacity-100', 'translate-y-0');
-        
-        setTimeout(() => {
-            toast.classList.remove('opacity-100', 'translate-y-0');
-            toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-        }, 3000);
-    }
-</script>
-</body>
-</html>
-```
-eof
-
----
-
-### What to do next:
-1. Open the code editor on your right containing `Handloom Business Ledger:index.html`.
-2. **Replace all code** inside it with the new code from the file box above.
-3. Save the file on your computer as `index.html`.
-4. Now, double-click to run it! 
-5. Go to GitHub and drag-and-drop the updated `index.html` file into your repository so it gets updated on your phone live web address.
-
-The math calculation is now automated perfectly according to your loom business! Let me know how it works for you!
+            <h3 class="font-serif text-lg tracking-
